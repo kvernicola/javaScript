@@ -1,0 +1,5 @@
+Js provee 8 diferentes tipos de datos y son:
+undefined, null, boolean, string, symbol, bigint, number, and object
+
+Cualquiera de estos 8 tipos pueden ser almacenados en una variable
+

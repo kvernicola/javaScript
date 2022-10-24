@@ -1,0 +1,37 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box; }
+
+header h1 {
+  text-align: center;
+  color: red;
+  font-size: 30px; }
+
+main #board {
+  padding: 1rem; }
+  main #board .rowLocker {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto; }
+    main #board .rowLocker .colLocker {
+      padding: 0;
+      border: 1px solid black;
+      width: 50px;
+      height: 50px; }
+
+/* form {
+    .button {
+        background-color: black;
+        color: white;
+        border: 2px solid red;
+        font-size: 1rem;
+        transition-duration: 0.4s;
+        &:hover {
+            font-size: 1.1rem;
+            background-color: red;
+            color: black;
+            cursor: pointer;
+        }
+    }
+} */
