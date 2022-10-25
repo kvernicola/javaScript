@@ -1,2 +1,3 @@
 # Ignorar dependencias node.js
 node_modules/
+scripts/scriptBkp.js
