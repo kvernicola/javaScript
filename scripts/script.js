@@ -107,11 +107,11 @@ const savedPassw = "qwerty";
 //inicio Interaccion
 let accessGranted = false;
 
-let userName = prompt("Hola!!! Bienvenido. Ingrese su nombre para continuar");
+let userName = prompt("Bienvenido!!! \nIngrese su nombre para continuar");
 alert("Bienvenido/a,,,   " + userName);
 
 let optSelected = prompt(
-	"\nPara poder jugar tienes que estar registrado. Selecciona una opcion \n1 para registrarte \n2 para iniciar sesion \nx para salir."
+	"\nPara poder jugar tienes que estar registrado. Selecciona una opcion \n'1' para registrarse \n'2' para iniciar sesion \n'x' para salir."
 );
 while (optSelected != "x") {
 	switch (optSelected) {
@@ -123,9 +123,12 @@ while (optSelected != "x") {
 			break;
 		default:
 			alert("La opcion elegida no es valida");
+			optSelected = prompt(
+				"\nPara poder jugar tienes que estar registrado. \nPresiona 1 para registrarte \nPresiona 2 para iniciar sesion \nPresiona 'x' para salir."
+			);
 			break;
 	}
-	if (optSelected == "2") { //me pa que no es necesario salir con el case 1, tendria q pedir prompt de nuevo o redireccionar a la funcion login (cuando valide usuarios sobre el array-pendiente)
+	if (optSelected == "2") { 
 		break;
 	} else {
 		optSelected = prompt(
