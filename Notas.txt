@@ -3,3 +3,285 @@ undefined, null, boolean, string, symbol, bigint, number, and object
 
 Cualquiera de estos 8 tipos pueden ser almacenados en una variable
 
+array usuarios [
+dentro del array
+    objeto-- user1 = {
+        username: kvernicola
+        mail: andres2879@gmail.com
+        password: qweqwe
+        nombre: Andres
+        edad: 42
+    }
+]
+Asi lo llamas cada propiedad
+console.log(usuarios.username)
+console.log(usuarios.password)
+
+Asi lo llamas con notacion []
+console.log(usuarios["username"])
+console.log(usuarios["password"])
+
+
+function User (name, age, mail, userName, password) {
+    this.name = name;
+    this.age = age;
+    this.mail = mail;
+    this.userName = userName;
+    this.password = password;
+}
+
+const persona1 = new User ("Andres", 42, "andres2879@gmail.com", "kvernicola", "qweqwe");
+
+funtion User (literal) {
+    this.name = literal.name;
+    this.age = literal.age;
+    this.mail = literal.mail;
+    this.userName: literal.userName;
+    this.password = literal.password;
+}
+
+const persona1 = new User ({name: "Andres", age: 42, mail: "andres2879@gmail.com", userName: "kvernicola", password: "qweqwe"});
+
+// Operador IN y FOR ...IN
+preguntas si el string/propiedad existe en el objeto
+
+console.log("name" in persona1); //devuelve true porque name si existe en el objeto persona1
+Esto usarlo para validar si userName existe en el array users
+
+for (User propiedad in persona1) {
+    console.log(persona1[propiedad]);
+}
+
+//Clases, crea objetos personalizados, equivalente a la funcion constructora
+
+class Users {
+    constructor(name, age, mail, userName, password) {
+        this.name = name;
+        this.age = age;
+        this.mail = mail;
+        this.userName = userName;
+        this.password = password;
+    }
+}
+
+const persona1 = new Users ("Andres", 42, "andres2879@gmail.com", "kvernicola", "qweqwe");
+
+
+class Users {
+    constructor (name, age, mail, userName, password) {
+        this.name = name.toUpperCase();
+        this.age = parseInt(age);
+        this.mail= mail.toLowerCase();
+        this.password = password;
+    }
+    profile() {
+        this.name = this.name + this.age;
+    }
+}
+
+const user1 = new Users("Andres", 42, "kvernicola", "qweqwe");
+console.log (user1.profile());
+
+
+// Array vacio, numero, string, booleano y mixto
+
+const arrayA = [];
+const arrayB = [1,2,3];
+const arrayC = ["casa", "perro", "auto", "plato"];
+const arrayD = [true, false, true, false];
+const arrayMixto = [1,2,"perro" true,"auto",3];
+
+for (let i=0; i < arrayB.length; i++) {
+    alert(arrayB[i]);
+}
+
+const blancas [
+    { id: 1, peon: "peon1"},
+    { id: 2, peon: "peon2"},
+    { id: 3, peon: "peon3"},
+    { id: 4, peon: "peon4"},
+    { id: 5, peon: "peon5"},
+    { id: 6, peon: "peon6"},
+    { id: 7, peon: "peon7"},
+    { id: 8, peon: "peon8"},
+    { id: 9, torre: "torre1"},
+    { id: 10, torre: "torre2"},
+    { id: 11, caballo: "caballo1},
+    { id: 12, caballo: "caballo2},
+    { id: 13, alfil: "alfil1"},
+    { id: 14, alfil: "alfil2"},
+    { id: 15, reina: "reina"},
+    { id: 16, rey: "rey"}
+];
+
+const negras [
+    "peon1","peon2","peon3","peon4","peon5","peon6","peon7","peon8",
+    "torre1","torre2",
+    "caballo1","caballo2",
+    "alfil1","alfil2",
+    "reina",
+    "rey"
+];
+
+console.log(blancas.length)
+
+negras.push("peon2") //agrega el elemento al final
+negras.unshift("peon1") //agrega el elemento al inicio
+
+negras.pop() //elimina el ultimo elemento
+negras.shift() //elimina el primer elemento
+negras.splice(1, 4) // elimina la posicion 1 y los 3 siguientes (primer parametro donde inicia, segundo parametro cuantos elimina)
+negras.join("-") //genera un string con todos los elementos del array delimitado por el caracter que le paso de parametro
+
+const fichas = blancas.concat(negras); // combina los 2 array en 1
+const fichasMovidas = fichas.slice(1-4); // Crea una copia desde la posicion 1 hasta la 4 (incluye solo hasta la posicion 3)
+
+// IndexOf
+
+console.log(blancas.indexOf('caballo2')) // me muestra el index del caballo2 en el array => index11
+
+// Includes
+
+console.log(negras.includes('peon2')) // si existe peon2 en el array devuelve true
+
+// Reverse 
+console.log(negras.reverse) //invierte el orden de los elementos del array
+
+// Metodos destructivos
+reverse
+push
+pop
+shift
+unshift
+
+
+const Users = [];
+let count = 4;
+
+//uso un do while para cargar info por prompt()
+do {
+    let nameIn = prompt("Ingrese su nombre");
+    Users.push(nameIn.toUpperCase());
+    console.log(Users.length);
+    let ageIn = parseInt(prompt("Ingrese su edad"));
+    Users.push(ageIn);
+    let mailIn = prompt("Ingrese su mail");
+    Users.push(mailIn.toLowerCase());
+    let userNameIn = prompt("Ingrese su nombre de usuario");
+    Users.push(userNameIn);
+    let passwordIn = prompt("Ingrese una contraseña");
+    let passwordVerify = prompt("Reingrese la contraseña");
+        if passwordIn == passwordVerify {
+            Users.push(passwordIn);
+        }else {
+            alert("La contraseña ingresada no coincide");
+        }
+    
+}while (Users.length != count)
+
+const eliminar = (age) => {
+    let younger = age.indexOf
+}
+
+
+const blancas [
+    { id: 1, peon: "peon1"},
+    { id: 2, peon: "peon2"},
+    { id: 3, peon: "peon3"},
+    { id: 4, peon: "peon4"},
+    { id: 5, peon: "peon5"},
+    { id: 6, peon: "peon6"},
+    { id: 7, peon: "peon7"},
+    { id: 8, peon: "peon8"},
+    { id: 9, torre: "torre1"},
+    { id: 10, torre: "torre2"},
+    { id: 11, caballo: "caballo1},
+    { id: 12, caballo: "caballo2},
+    { id: 13, alfil: "alfil1"},
+    { id: 14, alfil: "alfil2"},
+    { id: 15, reina: "reina"},
+    { id: 16, rey: "rey"}
+];
+
+const blancas = [
+    { id: 1, pieza: "peon1"},
+    { id: 2, pieza: "peon2"},
+    { id: 3, pieza: "peon3"},
+    { id: 4, pieza: "peon4"},
+    { id: 5, pieza: "peon5"},
+    { id: 6, pieza: "peon6"},
+    { id: 7, pieza: "peon7"},
+    { id: 8, pieza: "peon8"},
+    { id: 9, pieza: "torre1"},
+    { id: 10, pieza: "torre2"},
+    { id: 11, pieza: "caballo1},
+    { id: 12, pieza: "caballo2},
+    { id: 13, pieza: "alfil1"},
+    { id: 14, pieza: "alfil2"},
+    { id: 15, pieza: "reina"},
+    { id: 16, pieza: "rey"}
+];
+
+// FOR...Of
+
+for (const pieza of blancas) {
+    console.log(pieza.id);
+    console.log(pieza.pieza)
+}
+
+
+
+//-----------------
+let total = 0
+for (let i=0; i<=10; i++) {
+	total += i
+}
+console.log(total)
+
+
+console.log( sumarRango(1, 10) ); */
+
+//Funciones de orden superior
+
+/* function mayorQue (n) {
+	return (m) => m > n
+}
+
+let mayorQueDiez = mayorQue(10);
+console.log(mayorQueDiez(12));
+console.log(mayorQueDiez(8));
+
+function asignarOperacion(op) {
+	if (op == "sumar") {
+		return (a, b) => a + b
+	}else if (op == "restar") {
+		return (a, b) => a - b
+	}else if (op == "producto") {
+		return (a, b) => a * b
+	}
+}
+let suma = asignarOperacion("sumar");
+let resta = asignarOperacion("restar");
+
+console.log(suma (4, 6));
+console.log(resta(5, 3)); */
+
+
+/* const numeros = [2,3,4,6,8,42,48];
+
+function porCadaUno(array, fn) {
+	for (const elemento of array) {
+		fn(elemento)
+	}
+}
+//porCadaUno(numeros, console.log);
+console.log(numeros);
+
+const duplicado = [];
+
+porCadaUno(numeros, (elemento) => { // por cada uno de los elementos del array "numeros" hacer que "elemento" 
+	duplicado.push(elemento * 2); //se agregue al array duplicado multiplicando cada elemento x 2
+})
+console.log(duplicado) //muestra el nuevo array con los valores del array numeros multiplicado x2
+
+// Busqueda y transformacion */
