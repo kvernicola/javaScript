@@ -1,0 +1,45 @@
+// ------------  Tablero  --------------------------
+
+
+main {
+    #board {
+        padding: 1rem;
+        .rowLocker {
+            display: flex;
+            justify-content: center;
+            margin: 0 auto;
+            .colLocker {
+                padding: 0;
+                border: 1px solid #493e3e;
+                width: 50px;
+                height: 50px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                img {
+                    width: 70%;
+                    height: 90%;                    
+                }
+            }
+            .blackLocker {
+                background-color: #493e3e;
+            }
+            .whiteLocker {
+                background-color: #fefefe;
+            }
+            .gridMapRow {
+                width: 50px;
+                height: 50px;
+                display: flex;
+                align-items: flex-start;
+                justify-content: center;
+            }
+            .gridMapCol {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+            }
+        }
+    }
+}
+

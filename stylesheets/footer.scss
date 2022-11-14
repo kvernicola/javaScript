@@ -1,0 +1,106 @@
+footer {
+    background-color: map-get($colors, Primary);
+    padding: 0 1.5rem;
+    h2 {
+        font-family: $menu-font;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+    h2:hover {
+        font-size: 42px;
+    }
+    a {
+        font-size: 1.3rem;
+        &:hover {
+            color: map-get($colors, Quaternary);
+        }
+    }
+    #menuFooter {
+        ul {
+            display: flex;
+            justify-content: space-around;
+            li {
+                padding: 1rem 1rem;
+            }
+        }
+    }
+    #boxFooter {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 0 1rem;
+        min-height: 120px;
+        .boxTxFooter {
+            width: 300px;
+            p {
+                margin-bottom: 0;
+                font-size: 1.3rem;
+            }
+            h2 {
+                text-align: center;
+            }
+        }
+        .boxTxFooter2 {
+            h2 {
+                height: 120px;
+            }
+        }
+        .boxTxFooter3 {
+            text-align: right;
+            a {
+                display: block;
+            }
+        }
+    }
+}
+
+// ------------------------------ MediasQuerie --------------
+@media screen and (max-width: 950px) {
+    footer {
+        #menuFooter {
+            ul {
+                flex-direction: column;
+                align-items: center;
+                li {
+                    padding: 0.5rem 1rem;
+                }
+            }
+        }
+        #boxFooter {
+            flex-direction: column;
+            text-align: center;
+            .boxTxFooter {
+                width: 90vw;
+            }
+            .boxTxFooter3 {
+                text-align: center;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 500px) {
+    footer {
+        #menuFooter {
+            ul {
+                li {
+                    padding: 4px 8px 0 8px;
+                    a {
+                        font-size: 1.2rem;
+                    }
+                }
+            }
+        }
+        #boxFooter {
+            h2 {
+                font-size: 35px;
+            }
+            p {
+                font-size: 1.2rem;
+            }
+            a {
+                font-size: 1.2rem;
+            }
+        }
+    }
+}

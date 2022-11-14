@@ -4,169 +4,292 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Ajedrez</title>
+        <meta name="keywords" content="iniciar, sesion">
+        <meta name="description" content="Inicia sesion para acceder al juego">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Acme&family=Dancing+Script:wght@400;500;600;700&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
         <link rel="stylesheet" href="./css/main.css">
+        <title>Ajedrez</title>
     </head>
+
     <body>
-        <header>
-            <h1>Juego Ajedrez</h1>
-        </header>
-        <main>
-            <div class="container-fluid" id="board">
-                <div class="row row8 rowLocker">
-                    <div class="col-1"></div>
-                    <div class="col-1 gridMapCol">
-                        <span>8</span>
-                    </div>
-                    <div class="col-1 col8A colLocker"></div>
-                    <div class="col-1 col8B colLocker blackLocker"></div>
-                    <div class="col-1 col8C colLocker"></div>
-                    <div class="col-1 col8D colLocker blackLocker"></div>
-                    <div class="col-1 col8E colLocker"></div>
-                    <div class="col-1 col8F colLocker blackLocker"></div>
-                    <div class="col-1 col8G colLocker"></div>
-                    <div class="col-1 col8H colLocker blackLocker"></div>
-                    <div class="col-2"></div>
+        <div class="container-fluid p-0">
+            <header>
+                <div class="boxLogo">
+                    <a href="./index.html">
+                        <h2>Proyecto Ajedrez</h2>
+                    </a>
                 </div>
-                <div class="row row7 rowLocker">
-                    <div class="col-1"></div>
-                    <div class="col-1 gridMapCol">
-                        <span>7</span>
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="./pages/login.html">Iniciar Sesion</a>
+                        </li>
+                        <li>
+                            <a href="./pages/registro.html">Registro</a>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
+
+            <!----------------------------------------------    MAIN    ----------------------------->
+            <main>
+                <div class="container-fluid" id="board">
+                    <div class="row m-5">
+                        <div class="play">
+                            <span class="shadow"></span>
+                            <span class="edge"></span>
+                            <a class="front text" href="#">&bull; Jugar &bull;</a>
+                        </div>
                     </div>
-                    <div class="col-1 col7A colLocker blackLocker"></div>
-                    <div class="col-1 col7B colLocker"></div>
-                    <div class="col-1 col7C colLocker blackLocker"></div>
-                    <div class="col-1 col7D colLocker"></div>
-                    <div class="col-1 col7E colLocker blackLocker"></div>
-                    <div class="col-1 col7F colLocker"></div>
-                    <div class="col-1 col7G colLocker blackLocker"></div>
-                    <div class="col-1 col7H colLocker"></div>
-                    <div class="col-2"></div>
+                    <div class="row row8 rowLocker">
+                        <div class="col-1"></div>
+                        <div class="col-1 gridMapCol">
+                            <span>8</span>
+                        </div>
+                        <div class="col-1 col8A colLocker whiteLocker">
+                            <img src="./img/torreNegro.svg" alt="Torre negro">
+                        </div>
+                        <div class="col-1 col8B colLocker blackLocker">
+                            <img src="./img/caballoNegro.svg" alt="Caballo negro">
+                        </div>
+                        <div class="col-1 col8C colLocker whiteLocker">
+                            <img src="./img/alfilNegro.svg" alt="Alfil negro">
+                        </div>
+                        <div class="col-1 col8D colLocker blackLocker">
+                            <img src="./img/reinaNegro.svg" alt="Reina negro">
+                        </div>
+                        <div class="col-1 col8E colLocker whiteLocker">
+                            <img src="./img/reyNegro.svg" alt="Rey negro">
+                        </div>
+                        <div class="col-1 col8F colLocker blackLocker">
+                            <img src="./img/alfilNegro.svg" alt="Alfil negro">
+                        </div>
+                        <div class="col-1 col8G colLocker whiteLocker">
+                            <img src="./img/caballoNegro.svg" alt="Caballo negro">
+                        </div>
+                        <div class="col-1 col8H colLocker blackLocker">
+                            <img src="./img/torreNegro.svg" alt="Torre negro">
+                        </div>
+                        <div class="col-2"></div>
+                    </div>
+                    <div class="row row7 rowLocker">
+                        <div class="col-1"></div>
+                        <div class="col-1 gridMapCol">
+                            <span>7</span>
+                        </div>
+                        <div class="col-1 col7A colLocker blackLocker">
+                            <img src="./img/peonNegro.svg" alt="Peon negro">
+                        </div>
+                        <div class="col-1 col7B colLocker whiteLocker">
+                            <img src="./img/peonNegro.svg" alt="Peon negro">
+                        </div>
+                        <div class="col-1 col7C colLocker blackLocker">
+                            <img src="./img/peonNegro.svg" alt="Peon negro">
+                        </div>
+                        <div class="col-1 col7D colLocker whiteLocker">
+                            <img src="./img/peonNegro.svg" alt="Peon negro">
+                        </div>
+                        <div class="col-1 col7E colLocker blackLocker">
+                            <img src="./img/peonNegro.svg" alt="Peon negro">
+                        </div>
+                        <div class="col-1 col7F colLocker whiteLocker">
+                            <img src="./img/peonNegro.svg" alt="Peon negro">
+                        </div>
+                        <div class="col-1 col7G colLocker blackLocker">
+                            <img src="./img/peonNegro.svg" alt="Peon negro">
+                        </div>
+                        <div class="col-1 col7H colLocker whiteLocker">
+                            <img src="./img/peonNegro.svg" alt="Peon negro">
+                        </div>
+                        <div class="col-2"></div>
+                    </div>
+                    <div class="row row6 rowLocker">
+                        <div class="col-1"></div>
+                        <div class="col-1 gridMapCol">
+                            <span>6</span>
+                        </div>
+                        <div class="col-1 col6A colLocker whiteLocker"></div>
+                        <div class="col-1 col6B colLocker blackLocker"></div>
+                        <div class="col-1 col6C colLocker whiteLocker"></div>
+                        <div class="col-1 col6D colLocker blackLocker"></div>
+                        <div class="col-1 col6E colLocker whiteLocker"></div>
+                        <div class="col-1 col6F colLocker blackLocker"></div>
+                        <div class="col-1 col6G colLocker whiteLocker"></div>
+                        <div class="col-1 col6H colLocker blackLocker"></div>
+                        <div class="col-2"></div>
+                    </div>
+                    <div class="row row5 rowLocker">
+                        <div class="col-1"></div>
+                        <div class="col-1 gridMapCol">
+                            <span>5</span>
+                        </div>
+                        <div class="col-1 col5A colLocker blackLocker"></div>
+                        <div class="col-1 col5B colLocker whiteLocker"></div>
+                        <div class="col-1 col5C colLocker blackLocker"></div>
+                        <div class="col-1 col5D colLocker whiteLocker"></div>
+                        <div class="col-1 col5E colLocker blackLocker"></div>
+                        <div class="col-1 col5F colLocker whiteLocker"></div>
+                        <div class="col-1 col5G colLocker blackLocker"></div>
+                        <div class="col-1 col5H colLocker whiteLocker"></div>
+                        <div class="col-2"></div>
+                    </div>
+                    <div class="row row4 rowLocker">
+                        <div class="col-1"></div>
+                        <div class="col-1 gridMapCol">
+                            <span>4</span>
+                        </div>
+                        <div class="col-1 col4A colLocker whiteLocker"></div>
+                        <div class="col-1 col4B colLocker blackLocker"></div>
+                        <div class="col-1 col4C colLocker whiteLocker"></div>
+                        <div class="col-1 col4D colLocker blackLocker"></div>
+                        <div class="col-1 col4E colLocker whiteLocker"></div>
+                        <div class="col-1 col4F colLocker blackLocker"></div>
+                        <div class="col-1 col4G colLocker whiteLocker"></div>
+                        <div class="col-1 col4H colLocker blackLocker"></div>
+                        <div class="col-2"></div>
+                    </div>
+                    <div class="row row3 rowLocker">
+                        <div class="col-1"></div>
+                        <div class="col-1 gridMapCol">
+                            <span>3</span>
+                        </div>
+                        <div class="col-1 col3A colLocker blackLocker"></div>
+                        <div class="col-1 col3B colLocker whiteLocker"></div>
+                        <div class="col-1 col3C colLocker blackLocker"></div>
+                        <div class="col-1 col3D colLocker whiteLocker"></div>
+                        <div class="col-1 col3E colLocker blackLocker"></div>
+                        <div class="col-1 col3F colLocker whiteLocker"></div>
+                        <div class="col-1 col3G colLocker blackLocker"></div>
+                        <div class="col-1 col3H colLocker whiteLocker"></div>
+                        <div class="col-2"></div>
+                    </div>
+                    <div class="row row2 rowLocker">
+                        <div class="col-1"></div>
+                        <div class="col-1 gridMapCol">
+                            <span>2</span>
+                        </div>
+                        <div class="col-1 col2A colLocker whiteLocker">
+                            <img src="./img/peonBlanco.svg" alt="Peon blanco">
+                        </div>
+                        <div class="col-1 col2B colLocker blackLocker">
+                            <img src="./img/peonBlanco.svg" alt="Peon blanco">
+                        </div>
+                        <div class="col-1 col2C colLocker whiteLocker">
+                            <img src="./img/peonBlanco.svg" alt="Peon blanco">
+                        </div>
+                        <div class="col-1 col2D colLocker blackLocker">
+                            <img src="./img/peonBlanco.svg" alt="Peon blanco">
+                        </div>
+                        <div class="col-1 col2E colLocker whiteLocker">
+                            <img src="./img/peonBlanco.svg" alt="Peon blanco">
+                        </div>
+                        <div class="col-1 col2F colLocker blackLocker">
+                            <img src="./img/peonBlanco.svg" alt="Peon blanco">
+                        </div>
+                        <div class="col-1 col2G colLocker whiteLocker">
+                            <img src="./img/peonBlanco.svg" alt="Peon blanco">
+                        </div>
+                        <div class="col-1 col2H colLocker blackLocker">
+                            <img src="./img/peonBlanco.svg" alt="Peon blanco">
+                        </div>
+                        <div class="col-2"></div>
+                    </div>
+                    <div class="row row1 rowLocker">
+                        <div class="col-1"></div>
+                        <div class="col-1 gridMapCol">
+                            <span>1</span>
+                        </div>
+                        <div class="col-1 col1A colLocker blackLocker">
+                            <img src="./img/torreBlanco.svg" alt="Torre blanco">
+                        </div>
+                        <div class="col-1 col1B colLocker whiteLocker">
+                            <img src="./img/caballoBlanco.svg" alt="Caballo blanco">
+                        </div>
+                        <div class="col-1 col1C colLocker blackLocker">
+                            <img src="./img/alfilBlanco.svg" alt="Alfil blanco">
+                        </div>
+                        <div class="col-1 col1D colLocker whiteLocker">
+                            <img src="./img/reinaBlanco.svg" alt="Reina blanco">
+                        </div>
+                        <div class="col-1 col1E colLocker blackLocker">
+                            <img src="./img/reyBlanco.svg" alt="Rey blanco">
+                        </div>
+                        <div class="col-1 col1F colLocker whiteLocker">
+                            <img src="./img/alfilBlanco.svg" alt="Alfil blanco">
+                        </div>
+                        <div class="col-1 col1G colLocker blackLocker">
+                            <img src="./img/caballoBlanco.svg" alt="Caballo blanco">
+                        </div>
+                        <div class="col-1 col1H colLocker whiteLocker">
+                            <img src="./img/torreBlanco.svg" alt="Torre blanco">
+                        </div>
+                        <div class="col-2"></div>
+                    </div>
+                    <div class="row rowLocker m-4">
+                        <div class="col-2"></div>
+                        <div class="col-1 gridMapRow">
+                            <span>A</span>
+                        </div>
+                        <div class="col-1 gridMapRow">
+                            <span>B</span>
+                        </div>
+                        <div class="col-1 gridMapRow">
+                            <span>C</span>
+                        </div>
+                        <div class="col-1 gridMapRow">
+                            <span>D</span>
+                        </div>
+                        <div class="col-1 gridMapRow">
+                            <span>E</span>
+                        </div>
+                        <div class="col-1 gridMapRow">
+                            <span>F</span>
+                        </div>
+                        <div class="col-1 gridMapRow">
+                            <span>G</span>
+                        </div>
+                        <div class="col-1 gridMapRow">
+                            <span>H</span>
+                        </div>
+                        <div class="col-2"></div>
+                    </div>
                 </div>
-                <div class="row row6 rowLocker">
-                    <div class="col-1"></div>
-                    <div class="col-1 gridMapCol">
-                        <span>6</span>
+            </main>
+            <!-------------------------------------------      FOOTER     ---------------------------->
+            <footer>
+                <div id="boxFooter">
+                    <div class="boxTxFooter boxTxFooter1">
+                        <p>En aLguN luGar 2456 - 
+                            Buenos Aires - Argentina
+                            CP-999</p>
                     </div>
-                    <div class="col-1 col6A colLocker"></div>
-                    <div class="col-1 col6B colLocker blackLocker"></div>
-                    <div class="col-1 col6C colLocker"></div>
-                    <div class="col-1 col6D colLocker blackLocker"></div>
-                    <div class="col-1 col6E colLocker"></div>
-                    <div class="col-1 col6F colLocker blackLocker"></div>
-                    <div class="col-1 col6G colLocker"></div>
-                    <div class="col-1 col6H colLocker blackLocker"></div>
-                    <div class="col-2"></div>
+                    <div class="boxTxFooter boxTxFooter2">
+                        <a href="./index.html"><h2>Proyecto <br> Ajedrez</h2></a>
+                    </div>
+                    <div class="boxTxFooter boxTxFooter3">
+                        <a href="https://wa.me/1168823508" target="_blank">+54 9 11 6882 3508</a>
+                        <a href="mailto:amgiribaldi@gmail.com">amgiribaldi@gmail.com</a>
+                    </div>
                 </div>
-                <div class="row row5 rowLocker">
-                    <div class="col-1"></div>
-                    <div class="col-1 gridMapCol">
-                        <span>5</span>
-                    </div>
-                    <div class="col-1 col5A colLocker blackLocker"></div>
-                    <div class="col-1 col5B colLocker"></div>
-                    <div class="col-1 col5C colLocker blackLocker"></div>
-                    <div class="col-1 col5D colLocker"></div>
-                    <div class="col-1 col5E colLocker blackLocker"></div>
-                    <div class="col-1 col5F colLocker"></div>
-                    <div class="col-1 col5G colLocker blackLocker"></div>
-                    <div class="col-1 col5H colLocker"></div>
-                    <div class="col-2"></div>
-                </div>
-                <div class="row row4 rowLocker">
-                    <div class="col-1"></div>
-                    <div class="col-1 gridMapCol">
-                        <span>4</span>
-                    </div>
-                    <div class="col-1 col4A colLocker"></div>
-                    <div class="col-1 col4B colLocker blackLocker"></div>
-                    <div class="col-1 col4C colLocker"></div>
-                    <div class="col-1 col4D colLocker blackLocker"></div>
-                    <div class="col-1 col4E colLocker"></div>
-                    <div class="col-1 col4F colLocker blackLocker"></div>
-                    <div class="col-1 col4G colLocker"></div>
-                    <div class="col-1 col4H colLocker blackLocker"></div>
-                    <div class="col-2"></div>
-                </div>
-                <div class="row row3 rowLocker">
-                    <div class="col-1"></div>
-                    <div class="col-1 gridMapCol">
-                        <span>3</span>
-                    </div>
-                    <div class="col-1 col3A colLocker blackLocker"></div>
-                    <div class="col-1 col3B colLocker"></div>
-                    <div class="col-1 col3C colLocker blackLocker"></div>
-                    <div class="col-1 col3D colLocker"></div>
-                    <div class="col-1 col3E colLocker blackLocker"></div>
-                    <div class="col-1 col3F colLocker"></div>
-                    <div class="col-1 col3G colLocker blackLocker"></div>
-                    <div class="col-1 col3H colLocker"></div>
-                    <div class="col-2"></div>
-                </div>
-                <div class="row row2 rowLocker">
-                    <div class="col-1"></div>
-                    <div class="col-1 gridMapCol">
-                        <span>2</span>
-                    </div>
-                    <div class="col-1 col2A colLocker"></div>
-                    <div class="col-1 col2B colLocker blackLocker"></div>
-                    <div class="col-1 col2C colLocker"></div>
-                    <div class="col-1 col2D colLocker blackLocker"></div>
-                    <div class="col-1 col2E colLocker"></div>
-                    <div class="col-1 col2F colLocker blackLocker"></div>
-                    <div class="col-1 col2G colLocker"></div>
-                    <div class="col-1 col2H colLocker blackLocker"></div>
-                    <div class="col-2"></div>
-                </div>
-                <div class="row row1 rowLocker">
-                    <div class="col-1"></div>
-                    <div class="col-1 gridMapCol">
-                        <span>1</span>
-                    </div>
-                    <div class="col-1 col1A colLocker blackLocker"></div>
-                    <div class="col-1 col1B colLocker"></div>
-                    <div class="col-1 col1C colLocker blackLocker"></div>
-                    <div class="col-1 col1D colLocker"></div>
-                    <div class="col-1 col1E colLocker blackLocker"></div>
-                    <div class="col-1 col1F colLocker"></div>
-                    <div class="col-1 col1H colLocker blackLocker"></div>
-                    <div class="col-1 col1G colLocker"></div>
-                    <div class="col-2"></div>
-                </div>
-                <div class="row rowLocker">
-                    <div class="col-2"></div>
-                    <div class="col-1 gridMapRow">
-                        <span>A</span>
-                    </div>
-                    <div class="col-1 gridMapRow">
-                        <span>B</span>
-                    </div>
-                    <div class="col-1 gridMapRow">
-                        <span>C</span>
-                    </div>
-                    <div class="col-1 gridMapRow">
-                        <span>D</span>
-                    </div>
-                    <div class="col-1 gridMapRow">
-                        <span>E</span>
-                    </div>
-                    <div class="col-1 gridMapRow">
-                        <span>F</span>
-                    </div>
-                    <div class="col-1 gridMapRow">
-                        <span>G</span>
-                    </div>
-                    <div class="col-1 gridMapRow">
-                        <span>H</span>
-                    </div>
-                    <div class="col-2"></div>
-                </div>
-            </div>
-        </main>
-        
+            </footer>
+        </div><!--container-fluid-close-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-        <script src="./scripts/script.js"></script>
+        <!-- <script src="./scripts/script.js"></script> -->
     </body>
+    <!--
+  /$$$$$$  /$$      /$$  /$$$$$$ 
+ /$$__  $$| $$$    /$$$ /$$__  $$
+| $$  \ $$| $$$$  /$$$$| $$  \__/
+| $$$$$$$$| $$ $$/$$ $$| $$ /$$$$
+| $$__  $$| $$  $$$| $$| $$|_  $$
+| $$  | $$| $$ \ $ | $$| $$  \ $$
+| $$  | $$| $$ \/  | $$|  $$$$$$/
+|__/  |__/|__/     |__/ \______/ 
+ -->
 </html>
+
+
+
