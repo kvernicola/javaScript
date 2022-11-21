@@ -418,17 +418,17 @@ footer {
         box-shadow: 4px 4px 10px black; }
   #mainContact .btnEnviar {
     margin: 2rem auto 3rem; }
-  #mainContact #staticBackdrop .modal-content {
+  #mainContact #modalRegistro .modal-content {
     background-color: #434343; }
-    #mainContact #staticBackdrop .modal-content .modal-header {
+    #mainContact #modalRegistro .modal-content .modal-header {
       background-color: #000000; }
-      #mainContact #staticBackdrop .modal-content .modal-header .modal-title {
+      #mainContact #modalRegistro .modal-content .modal-header .modal-title {
         width: fit-content;
         margin: 1rem auto;
         font-family: "Montserrat", sans-serif;
         font-size: 35px;
         color: #fff; }
-  #mainContact #staticBackdrop span {
+  #mainContact #modalRegistro span {
     font-size: 1.4rem; }
 
 @keyframes check-animation {
@@ -632,3 +632,6 @@ ul {
 
 #board {
   background-color: #434343; }
+
+.d-none {
+  display: none; }

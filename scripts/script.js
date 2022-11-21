@@ -1,21 +1,21 @@
 //Array Piezas (incompleto)
 const blancas = [
-	{ id: 1, pieza: "peonBlanco1" }, //agregar posicion original como propiedad
-	{ id: 2, pieza: "peonBlanco2" },
-	{ id: 3, pieza: "peonBlanco3" },
-	{ id: 4, pieza: "peonBlanco4" },
-	{ id: 5, pieza: "peonBlanco5" },
-	{ id: 6, pieza: "peonBlanco6" },
-	{ id: 7, pieza: "peonBlanco7" },
-	{ id: 8, pieza: "peonBlanco8" },
-	{ id: 9, pieza: "torre1" },
-	{ id: 10, pieza: "torre2" },
-	{ id: 11, pieza: "caballo1" },
-	{ id: 12, pieza: "caballo2" },
-	{ id: 13, pieza: "alfil1" },
-	{ id: 14, pieza: "alfil2" },
-	{ id: 15, pieza: "reina" },
-	{ id: 16, pieza: "rey" },
+	{ id: 1, pieza: "peonBlanco1", img: "../img/peonBlanco.svg" }, //agregar posicion original como propiedad
+	{ id: 2, pieza: "peonBlanco2", img: "../img/peonBlanco.svg" },
+	{ id: 3, pieza: "peonBlanco3", img: "../img/peonBlanco.svg" },
+	{ id: 4, pieza: "peonBlanco4", img: "../img/peonBlanco.svg" },
+	{ id: 5, pieza: "peonBlanco5", img: "../img/peonBlanco.svg" },
+	{ id: 6, pieza: "peonBlanco6", img: "../img/peonBlanco.svg" },
+	{ id: 7, pieza: "peonBlanco7", img: "../img/peonBlanco.svg" },
+	{ id: 8, pieza: "peonBlanco8", img: "../img/peonBlanco.svg" },
+	{ id: 9, pieza: "torreBlanco1", img: "../img/torreBlanco.svg" },
+	{ id: 10, pieza: "torreBlanco2", img: "../img/torreBlanco.svg" },
+	{ id: 11, pieza: "caballoBlanco1", img: "../img/caballoBlanco.svg" },
+	{ id: 12, pieza: "caballoBlanco2", img: "../img/caballoBlanco.svg" },
+	{ id: 13, pieza: "alfilBlanco1", img: "../img/alfilBlanco.svg" },
+	{ id: 14, pieza: "alfilBlando2", img: "../img/alfilBlanco.svg" },
+	{ id: 15, pieza: "reinaBLanco", img: "../img/reinaBlanco.svg" },
+	{ id: 16, pieza: "reyBlanco", img: "../img/reyBlanco.svg" },
 ];
 
 //Array tablero
@@ -91,47 +91,40 @@ const Tablero = [
 	{ id: 62, casillero: "8F" },
 	{ id: 63, casillero: "8G" },
 	{ id: 64, casillero: "8H" },
-]
-
-// FOR...Of
-
-/* for (const pieza of blancas) {
-    console.log(pieza.id);
-    console.log(pieza.pieza)
-}*/
+];
 
 //Array Usuarios
-const Users = [
+let Usuarios = [
 	{
-		name: "Andres",
-		age: 42,
-		username: "amgiribaldi@gmail.com",
+		nombre: "Andres",
+		nombreUsuario: "amgiribaldi@gmail.com",
 		password: "qweqwe",
 		id: 1,
 	},
 	{
-		name: "Martin",
-		age: 43,
-		username: "amgiribaldi@outlook.com",
+		nombre: "Martin",
+		nombreUsuario: "amgiribaldi@outlook.com",
 		password: "qwe123",
 		id: 2,
 	},
 	{
-		name: "Giribaldi",
-		age: 44,
-		username: "amgiribaldi@blabla.com",
+		nombre: "Giribaldi",
+		nombreUsuario: "amgiribaldi@blabla.com",
 		password: "ewqewq",
 		id: 3,
 	},
+	{
+		nombre: "Denu",
+		nombreUsuario: "denu@meiro.com",
+		password: "chiche",
+		id: 4,
+	},
 ];
-//console.log(Users);
 
-class User {
-	constructor(name, age, mail, username, password, id) {
-		this.name = name;
-		this.age = age;
-		this.mail = mail;
-		this.username = username;
+class Usuario {
+	constructor(nombre, nombreUsuario, password, id) {
+		this.nombre = nombre;
+		this.nombreUsuario = nombreUsuario;
 		this.password = password;
 		this.id = id;
 	}
@@ -140,46 +133,193 @@ class User {
 	}
 }
 
-//Funciones
+//Elementos del DOM
+//Pagina registro
+const nombre = document.getElementById("registroNombre"),
+	nombreUsuario = document.getElementById("registroNombreUsuario"),
+	password = document.getElementById("registroPassw"),
+	aceptaTyC = document.getElementById("aceptaTyC"),
+	btnEnviar = document.getElementById("btnEnviar"),
+	btnSwal = document.getElementById("btnEnviar");
+//modalRegistro = document.getElementById("modalRegistro"),
+//modalNew = new bootstrap.Modal(modalNew),
+//elementosToggleables = document.querySelectorAll(".toggeable"),
+
+
+//Pagina login
+const loginEmail = document.getElementById("loginEmail"),
+	loginPassword = document.getElementById("loginPassw"),
+	recordarme = document.getElementById("recordarme"),
+	btnLogin = document.getElementById("btnLogin");
+
+//const tituloRegistro = document.getElementById("tituloPagina");
+//innerText cambio el texto del elemento en cuestion
+//tituloRegistro.innerText = ("Formulario Registro");
+
+//Si no existe array en el localStorage, cargo el array harcodeado / Si existe tomo ese array con los registros guardados en locarStorage
+listarUsuarios = JSON.parse(localStorage.getItem("Usuarios"));
+if (listarUsuarios == null) {
+	localStorage.setItem("Usuarios", JSON.stringify(Usuarios));
+} else {
+	Usuarios = JSON.parse(localStorage.getItem("Usuarios"));
+}
+console.log(listarUsuarios);
+console.log(Usuarios);
+
+//Limpiar datos de los storages
+function borrarDatos() {
+    localStorage.clear();
+    sessionStorage.clear();
+}
+
+// Si existe el elemento en la pagina actual, escucho el evento click en los button
+if (btnEnviar) {
+	btnEnviar.addEventListener("click", (e) => {
+		e.preventDefault();
+		registrar();
+	});
+}
+
+if (btnLogin) {
+	btnLogin.addEventListener("click", (e) => {
+		e.preventDefault();
+		login();
+	});
+}
+
+//Validar usuario
+function validarUsuario(usuariosDB, usuario, password) {
+	let existe = usuariosDB.find((usuarioDB) => usuarioDB.nombreUsuario == usuario);
+	//.find  busca en el array y devuelve el primer valor(nombreUsuario) encontrado o undefined si no encuentra
+	console.log(existe)
+	console.log(typeof existe);
+
+	if (typeof existe === "undefined") {
+		return false;
+	} else {
+		//si el usuario existe, comparo el password
+		if (existe.password != password) {
+			return false;
+		} else {
+			// si el pass password coincide retorno el usuario encontrado
+			return existe;
+		}
+	}
+}
+
+function login() {
+	if (!loginEmail.value || !loginPassword.value) {
+		alert("Todos los campos son requeridos");
+	} else {
+		let datos = validarUsuario(Usuarios, loginEmail.value, loginPassword.value);
+		//console.log(datos);
+		//console.log(loginEmail.value,loginPassword.value);
+		for (let i = 2; i >= 0; i--) {
+			//Corregir la implementacion de este for
+			if (!datos) {
+				//cambiar esto por un modal o usar libreria sweetalert
+				alert("El usuario y/o contraseña no son correctos. Tienes " + i + " intentos.");
+				console.log(i)
+				break;
+			} else {
+				//Cambiar este alert por mensaje de bienvenido "Nombre de Usuario" en modal o un text en algun elemento
+				alert("Bienvenido")
+				//Revisamos si elige persistir la info aunque se cierre el navegador o no
+				//ADAPTAR ESTE CODIGO
+				/* if (checkRecordar.checked) {
+					guardarDatos(data, localStorage);
+					saludar(recuperarUsuario(localStorage));
+				} else {
+					guardarDatos(data, sessionStorage);
+					saludar(recuperarUsuario(sessionStorage));
+				}
+				//Recién ahora cierro el cuadrito de login
+				modal.hide();
+				//Muestro la info para usuarios logueados
+				mostrarInfoMascota(mascotas);
+				presentarInfo(elementosToggleables, 'd-none'); */
+			}
+		}
+		/* if (!datos) {
+			//cambiar esto por un modal o usar libreria sweetalert
+			alert("El usuario y/o contraseña no son correctos");
+		} else {
+			//Cambiar este alert por mensaje de bienvenido "Nombre de Usuario" en modal o un text en algun elemento
+			alert("Bienvenido")
+			//Revisamos si elige persistir la info aunque se cierre el navegador o no
+			//ADAPTAR ESTE CODIGO
+            if (checkRecordar.checked) {
+                guardarDatos(data, localStorage);
+                saludar(recuperarUsuario(localStorage));
+            } else {
+                guardarDatos(data, sessionStorage);
+                saludar(recuperarUsuario(sessionStorage));
+            }
+            //Recién ahora cierro el cuadrito de login
+            modal.hide();
+            //Muestro la info para usuarios logueados
+            mostrarInfoMascota(mascotas);
+            presentarInfo(elementosToggleables, 'd-none');
+		} */
+	}
+}
+
 
 //registrarse
-function registrarse() {
-	let newUser = new User(
-		(name = prompt("Ingrese su nombre")),
-		(age = parseInt(prompt("ingrese su edad"))),
-		(username = prompt("Ingrese su mail (username)")),
-		(password = prompt("Ingrese una contraseña"))
+function registrar() {
+	let nuevoUsuario = new Usuario(
+		(this.nombre = nombre.value),
+		(this.nombreUsuario = nombreUsuario.value),
+		(this.password = password.value)
 	);
-	const existe = Users.some((User) => User.username === username);
-	//Corregir esta validacion, viendo de usar un while mientras existe != true para que haga el bucle hasta crear bien el usuario y ofrecer una opcion de cancelar el registro
-	if (existe != true) {
-		alert("El registro fue correcto, ya puede iniciar sesion");
+	listarUsuarios = JSON.parse(localStorage.getItem("Usuarios"));
+	const existe = listarUsuarios.some(
+		(listarUsuarios) => listarUsuarios.nombreUsuario === this.nombreUsuario
+	);
+	if (!nombreUsuario.value || !password.value) {
+		//cambiar esto por un modal o usar libreria sweetalert
+		alert("Todos los campos son requeridos");
 	} else {
-		alert("El usuario ingresado ya existe, intente con otro");
-		newUser = new User(
-			(name = prompt("Ingrese su nombre")),
-			(age = parseInt(prompt("ingrese su edad"))),
-			(mail = prompt("Ingrese su mail")),
-			(username = prompt("Ingrese un nombre de usuario")),
-			(password = prompt("Ingrese una contraseña"))
-		);
-	} // el usuario ya existe, da promp de nuevo pero finaliza si existe o no, por eso necesito un bucle
+		if (existe != true) {
+			//cambiar esto por un modal o usar libreria sweetalert
+/* 			() => {
+			Swal.fire({
+				title: '¡Hola!',
+				text: 'Te damos la bienvenida a nuestra app',
+				icon: 'info',
+				iconColor: '#66f4ae',
+				confirmButtonText: 'Gracias',
+				showCancelButton: true,
+				cancelButtonText: 'No me interesa',
+				timer: 2500
+				})
+			} */
+			
+			alert("El registro fue correcto, ya puede iniciar sesion");
+			Usuarios.push(nuevoUsuario);
+			nuevoUsuario.asignarId(Usuarios);
+			localStorage.setItem("Usuarios", JSON.stringify(Usuarios));
+		} else {
+			//cambiar esto por un modal o usar libreria sweetalert
+			alert("El mail ingresado ya esta registrado");
+		}
+	}
+
 	console.log(existe);
-	Users.push(newUser);
-	newUser.asignarId(Users);
-	console.log(Users);
+	console.log(listarUsuarios);
+	console.log(Usuarios);
 }
 
 //const existe = Users.some(User => User.username === "amgiribaldi@outlook.com");
 //console.log(existe);
 
 //iniciar sesion
-function login() {
+/* function login() {
 	for (let i = 2; i >= 0; i--) {
-		let userPassw = prompt(
+		let userPassword = prompt(
 			`Ingrese su password ${userName}. Tienes ${i + 1} intentos.`
 		);
-		if (userPassw == savedPassw) {
+		if (userPassword == savedPassword) {
 			accessGranted = true;
 			alert("Acceso correcto");
 			break;
@@ -188,84 +328,37 @@ function login() {
 		}
 	}
 	return accessGranted;
-}
+} */
 
-// borrar este passw de prueba
-const savedPassw = "qwerty";
-
-//inicio Interaccion
-let accessGranted = false;
-
-let userName = prompt("Bienvenido!!! \nIngrese su nombre para continuar");
-alert("Bienvenido/a,,,   " + userName);
-
-let optSelected = prompt(
-	"\nPara poder jugar tienes que estar registrado. Selecciona una opcion \n'1' para registrarse \n'2' para iniciar sesion \n'x' para salir."
-);
-while (optSelected != "x") {
-	switch (optSelected) {
-		case "1":
-			registrarse(); //verificar si el username ya existe, "usuario no disponible"
-			break;
-		case "2":
-			login(); //validar los usuarios con el array
-			break;
-		default:
-			alert("La opcion elegida no es valida");
-			optSelected = prompt(
-				"\nPara poder jugar tienes que estar registrado. \nPresiona 1 para registrarte \nPresiona 2 para iniciar sesion \nPresiona 'x' para salir."
-			);
-			break;
-	}
-	if (optSelected == "2") {
-		break;
+/* for (let i = 2; i >= 0; i--) {
+	if (!datos) {
+		//cambiar esto por un modal o usar libreria sweetalert
+		alert("El usuario y/o contraseña no son correctos. Tienes " + i + " intentos.");
 	} else {
-		optSelected = prompt(
-			"\nPara poder jugar tienes que estar registrado. \nPresiona 1 para registrarte \nPresiona 2 para iniciar sesion \nPresiona 'x' para salir."
-		);
+		//Cambiar este alert por mensaje de bienvenido "Nombre de Usuario" en modal o un text en algun elemento
+		alert("Bienvenido")
+		//Revisamos si elige persistir la info aunque se cierre el navegador o no
+		//ADAPTAR ESTE CODIGO
+		if (checkRecordar.checked) {
+			guardarDatos(data, localStorage);
+			saludar(recuperarUsuario(localStorage));
+		} else {
+			guardarDatos(data, sessionStorage);
+			saludar(recuperarUsuario(sessionStorage));
+		}
+		//Recién ahora cierro el cuadrito de login
+		modal.hide();
+		//Muestro la info para usuarios logueados
+		mostrarInfoMascota(mascotas);
+		presentarInfo(elementosToggleables, 'd-none');
 	}
-}
+} */
+
 
 //-----------------------------------------
 
-//const newUser = new User(name=prompt("Ingrese su nombre"), age=parseInt(prompt("ingrese su edad")), mail=prompt("Ingrese su mail"), username=prompt("Ingrese un nombre de usuario"),password=prompt("Ingrese una contraseña"));
-//Users.push(newUser);
-//console.log(Users);
 
-//Funcion nuevo usuario
-/* function newUser (name, age, mail, username, password) {
-    this.name = name;
-    this.age = age;
-    this.mail = mail;
-    this.username = username;
-    this.password = password;
-} */
+function saludar(usuario) {
+	nombre.innerHTML = `Bienvenido/s, <span>${usuario.nombre}</span>`;
+}
 
-//const persona1 = new newUser ("NombrePrueba", 21, "mail@prueba.com", "userPrueba", "passwPrueba");
-//Users.push(persona1)
-//console.log(persona1)
-
-//alert(Users);
-
-//uso un do while para cargar info por prompt()
-//let count = 4;
-/* do {
-    let nameIn = prompt("Ingrese su nombre");
-    Users.push(nameIn.toUpperCase());
-	console.log(Users.length);
-    let ageIn = parseInt(prompt("Ingrese su edad"));
-    Users.push(ageIn);
-    let mailIn = prompt("Ingrese su mail");
-    Users.push(mailIn.toLowerCase());
-    let userNameIn = prompt("Ingrese su nombre de usuario");
-    Users.push(userNameIn.toLowerCase());
-    let passwordIn = prompt("Ingrese una contraseña");
-    let passwordVerify = prompt("Reingrese la contraseña");
-        if (passwordVerify == passwordIn) {
-            Users.push(passwordIn);
-        }else {
-            alert("La contraseña ingresada no coincide");
-			passwordVerify = prompt("Verifique la contraseña ingresada");
-        }
-    
-}while (Users.length != count) */
