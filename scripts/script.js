@@ -140,11 +140,10 @@ const nombre = document.getElementById("registroNombre"),
 	password = document.getElementById("registroPassw"),
 	aceptaTyC = document.getElementById("aceptaTyC"),
 	btnEnviar = document.getElementById("btnEnviar"),
-	btnSwal = document.getElementById("btnEnviar");
+	btnJugar = document.getElementById("btnJugar");
 //modalRegistro = document.getElementById("modalRegistro"),
 //modalNew = new bootstrap.Modal(modalNew),
 //elementosToggleables = document.querySelectorAll(".toggeable"),
-
 
 //Pagina login
 const loginEmail = document.getElementById("loginEmail"),
@@ -168,8 +167,8 @@ console.log(Usuarios);
 
 //Limpiar datos de los storages
 function borrarDatos() {
-    localStorage.clear();
-    sessionStorage.clear();
+	localStorage.clear();
+	sessionStorage.clear();
 }
 
 // Si existe el elemento en la pagina actual, escucho el evento click en los button
@@ -189,9 +188,11 @@ if (btnLogin) {
 
 //Validar usuario
 function validarUsuario(usuariosDB, usuario, password) {
-	let existe = usuariosDB.find((usuarioDB) => usuarioDB.nombreUsuario == usuario);
+	let existe = usuariosDB.find(
+		(usuarioDB) => usuarioDB.nombreUsuario == usuario
+	);
 	//.find  busca en el array y devuelve el primer valor(nombreUsuario) encontrado o undefined si no encuentra
-	console.log(existe)
+	console.log(existe);
 	console.log(typeof existe);
 
 	if (typeof existe === "undefined") {
@@ -209,7 +210,16 @@ function validarUsuario(usuariosDB, usuario, password) {
 
 function login() {
 	if (!loginEmail.value || !loginPassword.value) {
-		alert("Todos los campos son requeridos");
+		Swal.fire({
+			title: "¡Hola!",
+			text: "Todos los campos son requeridos",
+			icon: "info",
+			iconColor: "#66f4ae",
+			confirmButtonText: "ok",
+			showCancelButton: false,
+			cancelButtonText: "No me interesa",
+			//timer: 2500
+		});
 	} else {
 		let datos = validarUsuario(Usuarios, loginEmail.value, loginPassword.value);
 		//console.log(datos);
@@ -218,12 +228,26 @@ function login() {
 			//Corregir la implementacion de este for
 			if (!datos) {
 				//cambiar esto por un modal o usar libreria sweetalert
-				alert("El usuario y/o contraseña no son correctos. Tienes " + i + " intentos.");
-				console.log(i)
+				alert(
+					"El usuario y/o contraseña no son correctos. Tienes " +
+						i +
+						" intentos."
+				);
+				console.log(i);
 				break;
 			} else {
 				//Cambiar este alert por mensaje de bienvenido "Nombre de Usuario" en modal o un text en algun elemento
-				alert("Bienvenido")
+				Swal.fire({
+					title: `Bienvenido`,
+					text: "Es hora de jugar",
+					icon: "info",
+					iconColor: "#66f4ae",
+					confirmButtonText: "Comenzar partida",
+					showCancelButton: false,
+					cancelButtonText: "No me interesa",
+					//timer: 2500,
+				});
+				alert(`"Bienvenido" ${Usuario.name}`);
 				//Revisamos si elige persistir la info aunque se cierre el navegador o no
 				//ADAPTAR ESTE CODIGO
 				/* if (checkRecordar.checked) {
@@ -264,7 +288,6 @@ function login() {
 	}
 }
 
-
 //registrarse
 function registrar() {
 	let nuevoUsuario = new Usuario(
@@ -277,31 +300,42 @@ function registrar() {
 		(listarUsuarios) => listarUsuarios.nombreUsuario === this.nombreUsuario
 	);
 	if (!nombreUsuario.value || !password.value) {
-		//cambiar esto por un modal o usar libreria sweetalert
-		alert("Todos los campos son requeridos");
+		Swal.fire({
+			title: "¡Hola!",
+			text: "Todos los campos son requeridos",
+			icon: "info",
+			iconColor: "#66f4ae",
+			confirmButtonText: "ok",
+			showCancelButton: false,
+			cancelButtonText: "No me interesa",
+			//timer: 2500
+		});
 	} else {
 		if (existe != true) {
-			//cambiar esto por un modal o usar libreria sweetalert
-/* 			() => {
 			Swal.fire({
-				title: '¡Hola!',
-				text: 'Te damos la bienvenida a nuestra app',
-				icon: 'info',
-				iconColor: '#66f4ae',
-				confirmButtonText: 'Gracias',
+				title: "¡Registro exitoso!",
+				text: "Ya puedes iniciar sesion y disfrutar una partida",
+				icon: "info",
+				iconColor: "#66f4ae",
+				confirmButtonText: "Iniciar sesion",
 				showCancelButton: true,
-				cancelButtonText: 'No me interesa',
-				timer: 2500
-				})
-			} */
-			
-			alert("El registro fue correcto, ya puede iniciar sesion");
+				cancelButtonText: "cancel",
+				//timer: 2500
+			});
 			Usuarios.push(nuevoUsuario);
 			nuevoUsuario.asignarId(Usuarios);
 			localStorage.setItem("Usuarios", JSON.stringify(Usuarios));
 		} else {
-			//cambiar esto por un modal o usar libreria sweetalert
-			alert("El mail ingresado ya esta registrado");
+			Swal.fire({
+				title: "¡Error!",
+				text: "El usuario ingresado ya se encuentra registrado",
+				icon: "info",
+				iconColor: "#66f4ae",
+				confirmButtonText: "ok",
+				showCancelButton: false,
+				cancelButtonText: "No me interesa",
+				timer: 2500
+			});
 		}
 	}
 
@@ -354,11 +388,24 @@ function registrar() {
 	}
 } */
 
-
 //-----------------------------------------
-
 
 function saludar(usuario) {
 	nombre.innerHTML = `Bienvenido/s, <span>${usuario.nombre}</span>`;
+}
+
+if (btnJugar) {
+	btnJugar.onclick = () => {
+		Swal.fire({
+			title: "¡Hola!",
+			text: "Para jugar tienes que iniciar sesion",
+			icon: "warning",
+			iconColor: "#66f4ae",
+			confirmButtonText: "Ok",
+			showCancelButton: true,
+			cancelButtonText: "No me interesa",
+			//timer: 2500,
+		});
+	};
 }
 
