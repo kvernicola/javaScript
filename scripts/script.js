@@ -141,8 +141,6 @@ const nombre = document.getElementById("registroNombre"),
 	aceptaTyC = document.getElementById("aceptaTyC"),
 	btnEnviar = document.getElementById("btnEnviar"),
 	btnJugar = document.getElementById("btnJugar");
-//modalRegistro = document.getElementById("modalRegistro"),
-//modalNew = new bootstrap.Modal(modalNew),
 //elementosToggleables = document.querySelectorAll(".toggeable"),
 
 //Pagina login
@@ -151,9 +149,12 @@ const loginEmail = document.getElementById("loginEmail"),
 	recordarme = document.getElementById("recordarme"),
 	btnLogin = document.getElementById("btnLogin");
 
-//const tituloRegistro = document.getElementById("tituloPagina");
+const tituloRegistro = document.getElementById("tituloPagina");
 //innerText cambio el texto del elemento en cuestion
-//tituloRegistro.innerText = ("Formulario Registro");
+if (tituloRegistro) {
+	tituloRegistro.innerText = ("Formulario Registro");
+}
+
 
 //Si no existe array en el localStorage, cargo el array harcodeado / Si existe tomo ese array con los registros guardados en locarStorage
 listarUsuarios = JSON.parse(localStorage.getItem("Usuarios"));
@@ -162,7 +163,7 @@ if (listarUsuarios == null) {
 } else {
 	Usuarios = JSON.parse(localStorage.getItem("Usuarios"));
 }
-console.log(listarUsuarios);
+//console.log(listarUsuarios);
 console.log(Usuarios);
 
 //Limpiar datos de los storages
@@ -184,6 +185,20 @@ if (btnLogin) {
 		e.preventDefault();
 		login();
 	});
+}
+
+if (btnJugar) {
+	btnJugar.onclick = () => {
+		Swal.fire({
+			title: "¡Hola!",
+			text: "Para jugar tienes que iniciar sesion",
+			icon: "warning",
+			iconColor: "#66f4ae",
+			confirmButtonText: "Ok",
+			showCancelButton: true,
+			cancelButtonText: "No me interesa",
+		});
+	};
 }
 
 //Validar usuario
@@ -209,82 +224,43 @@ function validarUsuario(usuariosDB, usuario, password) {
 }
 
 function login() {
-	if (!loginEmail.value || !loginPassword.value) {
-		Swal.fire({
-			title: "¡Hola!",
-			text: "Todos los campos son requeridos",
-			icon: "info",
-			iconColor: "#66f4ae",
-			confirmButtonText: "ok",
-			showCancelButton: false,
-			cancelButtonText: "No me interesa",
-			//timer: 2500
-		});
-	} else {
-		let datos = validarUsuario(Usuarios, loginEmail.value, loginPassword.value);
-		//console.log(datos);
-		//console.log(loginEmail.value,loginPassword.value);
-		for (let i = 2; i >= 0; i--) {
-			//Corregir la implementacion de este for
+	for (let i = 2; i >= 0; i--) {
+		if (!loginEmail.value || !loginPassword.value) {
+			Swal.fire({
+				title: "Ingrese usuario y contraseña",
+				//text: "",
+				icon: "info",
+				iconColor: "#66f4ae",
+				confirmButtonText: "Aceptar",
+			});
+		} else {
+			let datos = validarUsuario(
+				Usuarios,
+				loginEmail.value,
+				loginPassword.value
+			);
+			console.log(datos);
+			//console.log(loginEmail.value,loginPassword.value);
 			if (!datos) {
-				//cambiar esto por un modal o usar libreria sweetalert
-				alert(
-					"El usuario y/o contraseña no son correctos. Tienes " +
-						i +
-						" intentos."
-				);
-				console.log(i);
-				break;
-			} else {
-				//Cambiar este alert por mensaje de bienvenido "Nombre de Usuario" en modal o un text en algun elemento
 				Swal.fire({
-					title: `Bienvenido`,
+					title: "Datos incorrectos",
+					text: "Verifique los datos ingresados y vuelva a intentar",
+					icon: "info",
+					iconColor: "#66f4ae",
+					confirmButtonText: "Aceptar",
+				});
+			} else {
+				Swal.fire({
+					title: `Bienvenido/a ${datos.nombre}`,
 					text: "Es hora de jugar",
 					icon: "info",
 					iconColor: "#66f4ae",
 					confirmButtonText: "Comenzar partida",
-					showCancelButton: false,
-					cancelButtonText: "No me interesa",
-					//timer: 2500,
 				});
-				alert(`"Bienvenido" ${Usuario.name}`);
-				//Revisamos si elige persistir la info aunque se cierre el navegador o no
-				//ADAPTAR ESTE CODIGO
-				/* if (checkRecordar.checked) {
-					guardarDatos(data, localStorage);
-					saludar(recuperarUsuario(localStorage));
-				} else {
-					guardarDatos(data, sessionStorage);
-					saludar(recuperarUsuario(sessionStorage));
-				}
-				//Recién ahora cierro el cuadrito de login
-				modal.hide();
-				//Muestro la info para usuarios logueados
-				mostrarInfoMascota(mascotas);
-				presentarInfo(elementosToggleables, 'd-none'); */
+				break;
+				//Redireccionar a pagina con tablero 
 			}
 		}
-		/* if (!datos) {
-			//cambiar esto por un modal o usar libreria sweetalert
-			alert("El usuario y/o contraseña no son correctos");
-		} else {
-			//Cambiar este alert por mensaje de bienvenido "Nombre de Usuario" en modal o un text en algun elemento
-			alert("Bienvenido")
-			//Revisamos si elige persistir la info aunque se cierre el navegador o no
-			//ADAPTAR ESTE CODIGO
-            if (checkRecordar.checked) {
-                guardarDatos(data, localStorage);
-                saludar(recuperarUsuario(localStorage));
-            } else {
-                guardarDatos(data, sessionStorage);
-                saludar(recuperarUsuario(sessionStorage));
-            }
-            //Recién ahora cierro el cuadrito de login
-            modal.hide();
-            //Muestro la info para usuarios logueados
-            mostrarInfoMascota(mascotas);
-            presentarInfo(elementosToggleables, 'd-none');
-		} */
 	}
 }
 
@@ -308,7 +284,6 @@ function registrar() {
 			confirmButtonText: "ok",
 			showCancelButton: false,
 			cancelButtonText: "No me interesa",
-			//timer: 2500
 		});
 	} else {
 		if (existe != true) {
@@ -320,7 +295,6 @@ function registrar() {
 				confirmButtonText: "Iniciar sesion",
 				showCancelButton: true,
 				cancelButtonText: "cancel",
-				//timer: 2500
 			});
 			Usuarios.push(nuevoUsuario);
 			nuevoUsuario.asignarId(Usuarios);
@@ -334,7 +308,7 @@ function registrar() {
 				confirmButtonText: "ok",
 				showCancelButton: false,
 				cancelButtonText: "No me interesa",
-				timer: 2500
+				timer: 2500,
 			});
 		}
 	}
@@ -344,68 +318,9 @@ function registrar() {
 	console.log(Usuarios);
 }
 
-//const existe = Users.some(User => User.username === "amgiribaldi@outlook.com");
-//console.log(existe);
-
-//iniciar sesion
-/* function login() {
-	for (let i = 2; i >= 0; i--) {
-		let userPassword = prompt(
-			`Ingrese su password ${userName}. Tienes ${i + 1} intentos.`
-		);
-		if (userPassword == savedPassword) {
-			accessGranted = true;
-			alert("Acceso correcto");
-			break;
-		} else {
-			alert("El password ingresado es incorrecto. Tienes " + i + " intentos.");
-		}
-	}
-	return accessGranted;
-} */
-
-/* for (let i = 2; i >= 0; i--) {
-	if (!datos) {
-		//cambiar esto por un modal o usar libreria sweetalert
-		alert("El usuario y/o contraseña no son correctos. Tienes " + i + " intentos.");
-	} else {
-		//Cambiar este alert por mensaje de bienvenido "Nombre de Usuario" en modal o un text en algun elemento
-		alert("Bienvenido")
-		//Revisamos si elige persistir la info aunque se cierre el navegador o no
-		//ADAPTAR ESTE CODIGO
-		if (checkRecordar.checked) {
-			guardarDatos(data, localStorage);
-			saludar(recuperarUsuario(localStorage));
-		} else {
-			guardarDatos(data, sessionStorage);
-			saludar(recuperarUsuario(sessionStorage));
-		}
-		//Recién ahora cierro el cuadrito de login
-		modal.hide();
-		//Muestro la info para usuarios logueados
-		mostrarInfoMascota(mascotas);
-		presentarInfo(elementosToggleables, 'd-none');
-	}
-} */
 
 //-----------------------------------------
 
-function saludar(usuario) {
-	nombre.innerHTML = `Bienvenido/s, <span>${usuario.nombre}</span>`;
+function saludar(datos) {
+	nombre.innerHTML = `Bienvenido/s, <span>${datos.nombre}</span>`;
 }
-
-if (btnJugar) {
-	btnJugar.onclick = () => {
-		Swal.fire({
-			title: "¡Hola!",
-			text: "Para jugar tienes que iniciar sesion",
-			icon: "warning",
-			iconColor: "#66f4ae",
-			confirmButtonText: "Ok",
-			showCancelButton: true,
-			cancelButtonText: "No me interesa",
-			//timer: 2500,
-		});
-	};
-}
-
