@@ -109,14 +109,14 @@ let Usuarios = [
 	},
 	{
 		nombre: "Giribaldi",
-		nombreUsuario: "amgiribaldi@blabla.com",
+		nombreUsuario: "amgiribaldi@xmail.com",
 		password: "ewqewq",
 		id: 3,
 	},
 	{
-		nombre: "Denu",
-		nombreUsuario: "denu@meiro.com",
-		password: "chiche",
+		nombre: "Invitado",
+		nombreUsuario: "invitado@invitado.com",
+		password: "invitado",
 		id: 4,
 	},
 ];
@@ -152,9 +152,8 @@ const loginEmail = document.getElementById("loginEmail"),
 const tituloRegistro = document.getElementById("tituloPagina");
 //innerText cambio el texto del elemento en cuestion
 if (tituloRegistro) {
-	tituloRegistro.innerText = ("Formulario Registro");
+	tituloRegistro.innerText = "Formulario Registro";
 }
-
 
 //Si no existe array en el localStorage, cargo el array harcodeado / Si existe tomo ese array con los registros guardados en locarStorage
 listarUsuarios = JSON.parse(localStorage.getItem("Usuarios"));
@@ -172,23 +171,14 @@ function borrarDatos() {
 	sessionStorage.clear();
 }
 
-// Si existe el elemento en la pagina actual, escucho el evento click en los button
-if (btnEnviar) {
-	btnEnviar.addEventListener("click", (e) => {
-		e.preventDefault();
-		registrar();
-	});
-}
-
-if (btnLogin) {
-	btnLogin.addEventListener("click", (e) => {
-		e.preventDefault();
-		login();
-	});
+function saludar(datos) {
+	nombre.innerHTML = `Bienvenido/s, <span>${datos.nombre}</span>`;
 }
 
 if (btnJugar) {
 	btnJugar.onclick = () => {
+		let textoBtn = "Iniciar sesion";
+		let URL = "../pages/login.html";
 		Swal.fire({
 			title: "¡Hola!",
 			text: "Para jugar tienes que iniciar sesion",
@@ -196,7 +186,7 @@ if (btnJugar) {
 			iconColor: "#66f4ae",
 			confirmButtonText: "Ok",
 			showCancelButton: true,
-			cancelButtonText: "No me interesa",
+			cancelButtonText: textoBtn.link(URL),
 		});
 	};
 }
@@ -223,7 +213,125 @@ function validarUsuario(usuariosDB, usuario, password) {
 	}
 }
 
-function login() {
+if (btnLogin) {
+	btnLogin.addEventListener("click", (e) => {
+		e.preventDefault();
+		//login();
+		for (let i = 2; i >= 0; i--) {
+			if (!loginEmail.value || !loginPassword.value) {
+				Swal.fire({
+					title: "Ingrese usuario y contraseña",
+					//text: "",
+					icon: "warning",
+					iconColor: "#FF8000",
+					confirmButtonText: "Aceptar",
+				});
+			} else {
+				let datos = validarUsuario(
+					Usuarios,
+					loginEmail.value,
+					loginPassword.value
+				);
+				console.log(datos);
+				//console.log(loginEmail.value,loginPassword.value);
+				if (!datos) {
+					Swal.fire({
+						title: "Datos incorrectos",
+						text: "Verifique los datos ingresados y vuelva a intentar",
+						icon: "warning",
+						iconColor: "#CB3234",
+						confirmButtonText: "Aceptar",
+					});
+				} else {
+					let textoBtn = "Comenzar partida";
+					let URL = "../pages/tablero.html";
+					Swal.fire({
+						title: `Bienvenido/a ${datos.nombre}`,
+						text: "Es hora de jugar",
+						icon: "info",
+						iconColor: "#66f4ae",
+						confirmButtonText: textoBtn.link(URL),
+					});
+					break;
+					/* const Toast = Swal.mixin({
+						toast: true,
+						position: "top-end",
+						showConfirmButton: false,
+						timer: 3000,
+						timerProgressBar: true,
+						didOpen: (toast) => {
+							toast.addEventListener("mouseenter", Swal.stopTimer);
+							toast.addEventListener("mouseleave", Swal.resumeTimer);
+						},
+					});
+					Toast.fire({
+						icon: "success",
+						title: "Sesion iniciada",
+					}); */
+					//Redireccionar a pagina con tablero
+				}
+			}
+		}
+	});
+}
+
+if (btnEnviar) {
+	btnEnviar.addEventListener("click", (e) => {
+		e.preventDefault();
+		//registrar();
+		let nuevoUsuario = new Usuario(
+			(this.nombre = nombre.value),
+			(this.nombreUsuario = nombreUsuario.value),
+			(this.password = password.value)
+		);
+		listarUsuarios = JSON.parse(localStorage.getItem("Usuarios"));
+		const existe = listarUsuarios.some(
+			(listarUsuarios) => listarUsuarios.nombreUsuario === this.nombreUsuario
+		);
+		if (!nombreUsuario.value || !password.value) {
+			Swal.fire({
+				title: "¡Hola!",
+				text: "Todos los campos son requeridos",
+				icon: "info",
+				iconColor: "#66f4ae",
+				confirmButtonText: "ok",
+			});
+		} else {
+			if (existe != true) {
+				let textoBtn = "Iniciar sesion";
+				let URL = "../pages/login.html";
+				Swal.fire({
+					title: "¡Registro exitoso!",
+					text: "Ya puedes iniciar sesion y disfrutar una partida",
+					icon: "info",
+					iconColor: "#66f4ae",
+					confirmButtonText: textoBtn.link(URL),
+					showCancelButton: true,
+					cancelButtonText: "cancel",
+				});
+				Usuarios.push(nuevoUsuario);
+				nuevoUsuario.asignarId(Usuarios);
+				localStorage.setItem("Usuarios", JSON.stringify(Usuarios));
+			} else {
+				Swal.fire({
+					title: "¡Error!",
+					text: "El usuario ingresado ya se encuentra registrado",
+					icon: "info",
+					iconColor: "#66f4ae",
+					confirmButtonText: "ok",
+					timer: 2500,
+				});
+			}
+		}
+		console.log(existe);
+		console.log(listarUsuarios);
+		console.log(Usuarios);
+	});
+}
+
+//------------------------------------------------------------
+
+/* function login() {
 	for (let i = 2; i >= 0; i--) {
 		if (!loginEmail.value || !loginPassword.value) {
 			Swal.fire({
@@ -262,10 +370,10 @@ function login() {
 			}
 		}
 	}
-}
+} */
 
 //registrarse
-function registrar() {
+/* function registrar() {
 	let nuevoUsuario = new Usuario(
 		(this.nombre = nombre.value),
 		(this.nombreUsuario = nombreUsuario.value),
@@ -282,8 +390,6 @@ function registrar() {
 			icon: "info",
 			iconColor: "#66f4ae",
 			confirmButtonText: "ok",
-			showCancelButton: false,
-			cancelButtonText: "No me interesa",
 		});
 	} else {
 		if (existe != true) {
@@ -306,21 +412,13 @@ function registrar() {
 				icon: "info",
 				iconColor: "#66f4ae",
 				confirmButtonText: "ok",
-				showCancelButton: false,
-				cancelButtonText: "No me interesa",
 				timer: 2500,
 			});
 		}
 	}
-
 	console.log(existe);
 	console.log(listarUsuarios);
 	console.log(Usuarios);
-}
+} */
 
-
-//-----------------------------------------
-
-function saludar(datos) {
-	nombre.innerHTML = `Bienvenido/s, <span>${datos.nombre}</span>`;
-}
+//------------------------------------------------------------

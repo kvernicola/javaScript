@@ -47,7 +47,7 @@ span,
 legend {
     font-family: $text-font;
     color: map-get($colors, Quaternary);
-    font-size: 1.5rem;
+    font-size: 1rem;
 }
 
 hr {
@@ -143,7 +143,7 @@ ul {
 .btnEnviar {
     font-family: inherit;
     width: 110px;
-    background: map-get($colors, Secondary);
+    background: map-get($colors, Primary);
     color: map-get($colors, Quaternary);
     padding: 0.4rem 1rem;
     padding-left: 0.9em;

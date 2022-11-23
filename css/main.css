@@ -519,7 +519,7 @@ span,
 legend {
   font-family: "Poppins", sans-serif;
   color: #fff;
-  font-size: 1.5rem; }
+  font-size: 1rem; }
 
 hr {
   width: 92%;
@@ -596,7 +596,7 @@ ul {
 .btnEnviar {
   font-family: inherit;
   width: 110px;
-  background: #434343;
+  background: #000000;
   color: #fff;
   padding: 0.4rem 1rem;
   padding-left: 0.9em;
