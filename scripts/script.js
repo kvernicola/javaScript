@@ -178,7 +178,7 @@ function saludar(datos) {
 if (btnJugar) {
 	btnJugar.onclick = () => {
 		let textoBtn = "Iniciar sesion";
-		let URL = "../pages/login.html";
+		let URL = "./pages/login.html";
 		Swal.fire({
 			title: "¡Hola!",
 			text: "Para jugar tienes que iniciar sesion",
