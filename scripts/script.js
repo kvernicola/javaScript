@@ -139,9 +139,57 @@ const nombre = document.getElementById("registroNombre"),
 	nombreUsuario = document.getElementById("registroNombreUsuario"),
 	password = document.getElementById("registroPassw"),
 	aceptaTyC = document.getElementById("aceptaTyC"),
-	btnEnviar = document.getElementById("btnEnviar"),
+	btnRegistrar = document.getElementById("btnEnviar"),
 	btnJugar = document.getElementById("btnJugar");
 //elementosToggleables = document.querySelectorAll(".toggeable"),
+const tituloRegistro = document.getElementById("tituloPagina");
+//Cambio tituto del H2
+if (tituloRegistro) {
+	tituloRegistro.innerText = "Formulario Registro";
+}
+//Validaciones del imput nombreUsuario
+if (nombreUsuario) {
+	nombreUsuario.addEventListener("keypress", (evento) => {
+		let codigoCaracter = evento.charCode;
+		if (codigoCaracter != 0) {
+			if (codigoCaracter > 32 && codigoCaracter < 45) {
+				evento.preventDefault();
+				Swal.fire({
+					title: "No se permite caracteres especiales como ! $ # % & , ",
+					icon: "warning",
+					iconColor: "#CB3234",
+					confirmButtonText: "Aceptar",
+				});
+			} else if (codigoCaracter > 57 && codigoCaracter < 64) {
+				evento.preventDefault();
+				Swal.fire({
+					title: "No se permite caracteres especiales como ; : > < ?",
+					icon: "warning",
+					iconColor: "#CB3234",
+					confirmButtonText: "Aceptar",
+				});
+			} else if (codigoCaracter > 64 && codigoCaracter < 95) {
+				evento.preventDefault();
+				Swal.fire({
+					title: "No se permiten mayusculas ni [  ^ ]",
+					icon: "warning",
+					iconColor: "#CB3234",
+					confirmButtonText: "Aceptar",
+				});
+			} else if (codigoCaracter > 122) {
+				Swal.fire({
+					title: "No se permite caracteres especiales como { } ~ |",
+					icon: "warning",
+					iconColor: "#CB3234",
+					confirmButtonText: "Aceptar",
+				});
+			} else if (codigoCaracter == 47 || codigoCaracter == 96) {
+				evento.preventDefault();
+				alert("Ese caracter tampoco es valido ja");
+			}
+		}
+	});
+}
 
 //Pagina login
 const loginEmail = document.getElementById("loginEmail"),
@@ -149,10 +197,12 @@ const loginEmail = document.getElementById("loginEmail"),
 	recordarme = document.getElementById("recordarme"),
 	btnLogin = document.getElementById("btnLogin");
 
-const tituloRegistro = document.getElementById("tituloPagina");
-//innerText cambio el texto del elemento en cuestion
-if (tituloRegistro) {
-	tituloRegistro.innerText = "Formulario Registro";
+//Pagina tablero
+const cerrarSesion = document.getElementById("cerrarSesion");
+if (cerrarSesion) {
+	cerrarSesion.addEventListener("click", () => {
+		sessionStorage.clear();
+	});
 }
 
 //Si no existe array en el localStorage, cargo el array harcodeado / Si existe tomo ese array con los registros guardados en locarStorage
@@ -171,9 +221,9 @@ function borrarDatos() {
 	sessionStorage.clear();
 }
 
-function saludar(datos) {
+/* function saludar(datos) {
 	nombre.innerHTML = `Bienvenido/s, <span>${datos.nombre}</span>`;
-}
+} */
 
 if (btnJugar) {
 	btnJugar.onclick = () => {
@@ -220,7 +270,7 @@ if (btnLogin) {
 		for (let i = 2; i >= 0; i--) {
 			if (!loginEmail.value || !loginPassword.value) {
 				Swal.fire({
-					title: "Ingrese usuario y contraseña",
+					title: "Complete los campos usuario y contraseña",
 					//text: "",
 					icon: "warning",
 					iconColor: "#FF8000",
@@ -233,7 +283,6 @@ if (btnLogin) {
 					loginPassword.value
 				);
 				console.log(datos);
-				//console.log(loginEmail.value,loginPassword.value);
 				if (!datos) {
 					Swal.fire({
 						title: "Datos incorrectos",
@@ -252,6 +301,7 @@ if (btnLogin) {
 						iconColor: "#66f4ae",
 						confirmButtonText: textoBtn.link(URL),
 					});
+					sessionStorage.setItem("Usuarios", JSON.stringify(Usuarios));
 					break;
 					/* const Toast = Swal.mixin({
 						toast: true,
@@ -275,8 +325,17 @@ if (btnLogin) {
 	});
 }
 
-if (btnEnviar) {
-	btnEnviar.addEventListener("click", (e) => {
+// if (btnRegistrar) {
+// 	btnRegistrar.addEventListener("click", (e) => {
+// 		e.preventDefault();
+
+// 	});
+
+// }
+// console.log(aceptaTyC);
+
+if (btnRegistrar) {
+	btnRegistrar.addEventListener("click", (e) => {
 		e.preventDefault();
 		//registrar();
 		let nuevoUsuario = new Usuario(
@@ -293,6 +352,13 @@ if (btnEnviar) {
 				title: "¡Hola!",
 				text: "Todos los campos son requeridos",
 				icon: "info",
+				iconColor: "#66f4ae",
+				confirmButtonText: "ok",
+			});
+		} else if (!aceptaTyC.checked) {
+			Swal.fire({
+				title: "Es necesario aceptar los Terminos y Condiciones",
+				icon: "warning",
 				iconColor: "#66f4ae",
 				confirmButtonText: "ok",
 			});
@@ -372,7 +438,6 @@ if (btnEnviar) {
 	}
 } */
 
-//registrarse
 /* function registrar() {
 	let nuevoUsuario = new Usuario(
 		(this.nombre = nombre.value),
@@ -422,3 +487,116 @@ if (btnEnviar) {
 } */
 
 //------------------------------------------------------------
+
+/* /* /* inputOptions can be an object or Promise */
+/* const inputOptions = new Promise((resolve) => {
+	setTimeout(() => {
+		resolve({
+			"Blancas": "Blancas",
+			"Negras": "Negras",
+		});
+	}, 1000);
+});
+
+const { value: color } = await Swal.fire({
+	title: "Select color",
+	input: "radio",
+	inputOptions: inputOptions,
+	inputValidator: (value) => {
+		if (!value) {
+			return "You need to choose something!";
+		}
+	},
+});
+
+if (color) {
+	Swal.fire({ html: `You selected: ${color}` });
+} */
+
+//Esta función nos permite intercambiar la visualización de los elementos del DOM, agregando o sacando la clase d-none. Si el elemento la tiene, se la saco, y si no la tiene, se la agrego. La gata Flora de las funciones sería.
+// function presentarInfo(array, clase) {
+//     array.forEach(element => {
+//         element.classList.toggle(clase);
+//     });
+// }
+
+//Esta función revisa si hay un usuario guardado en el storage, y en ese caso evita todo el proceso de login
+// function estaLogueado(usuario) {
+
+//     if (usuario) {
+//         saludar(usuario);
+//         mostrarInfoMascota(mascotas);
+//         presentarInfo(elementosToggleables, 'd-none');
+//     }
+// }
+
+
+let torreNegro = [0, 7];
+let caballoNegro = [1, 6];
+let alfilNegro = [2, 5];
+let reyNegro = [3];
+let reinaNegro = [4];
+let peonNegro = [8, 9, 10, 11, 12, 13, 14, 15];
+
+let torreBlanco = [56,63];
+let caballoBlanco = [57, 62];
+let alfilBlanco = [58, 61];
+let reyBlanco = [59];
+let reinaBlanco = [60];
+let peonBlanco = [48, 49, 50, 51, 52, 53, 54, 55];
+
+
+for (let i = 0; i < 64; i++) {
+	let div = document.createElement("div");
+	document.getElementById("Tablero").appendChild(div).style.backgroundColor =
+		parseInt(i / 8 + i) % 2 == 0 ? "#fff" : "#434343";
+	if (torreNegro.indexOf(i) !== -1) {
+		//div.innerHTML = "&#9814;";
+		div.innerHTML = `<img src="../img/torreNegro.svg" alt="Torre negro" />` ;
+	}
+	if (caballoNegro.indexOf(i) !== -1) {
+		//div.innerHTML = "&#9816;";
+		div.innerHTML = `<img src="../img/caballoNegro.svg" alt="Caballo negro" />` ;
+	}
+	if (alfilNegro.indexOf(i) !== -1) {
+		//div.innerHTML = "&#9815;";
+		div.innerHTML = `<img src="../img/alfilNegro.svg" alt="Alfil negro" />` ;
+	}
+	if (reyNegro.indexOf(i) !== -1) {
+		//div.innerHTML = "&#9812;";
+		div.innerHTML = `<img src="../img/reyNegro.svg" alt="Rey negro" />` ;
+	}
+	if (reinaNegro.indexOf(i) !== -1) {
+		//div.innerHTML = "&#9813;";
+		div.innerHTML = `<img src="../img/reinaNegro.svg" alt="Reina negro" />` ;
+	}
+	if (peonNegro.indexOf(i) !== -1) {
+		//div.innerHTML = "&#9817;";
+		div.innerHTML = `<img src="../img/peonNegro.svg" alt="Peon negro" />` ;
+	}
+
+	if (torreBlanco.indexOf(i) !== -1) {
+		//div.innerHTML = "&#9814;";
+		div.innerHTML = `<img src="../img/torreBlanco.svg" alt="Torre blanco" />` ;
+	}
+	if (caballoBlanco.indexOf(i) !== -1) {
+		//div.innerHTML = "&#9816;";
+		div.innerHTML = `<img src="../img/caballoBlanco.svg" alt="Caballo blanco" />` ;
+	}
+	if (alfilBlanco.indexOf(i) !== -1) {
+		//div.innerHTML = "&#9815;";
+		div.innerHTML = `<img src="../img/alfilBlanco.svg" alt="Alfil blanco" />` ;
+	}
+	if (reyBlanco.indexOf(i) !== -1) {
+		//div.innerHTML = "&#9812;";
+		div.innerHTML = `<img src="../img/reyBlanco.svg" alt="Rey blanco" />` ;
+	}
+	if (reinaBlanco.indexOf(i) !== -1) {
+		//div.innerHTML = "&#9813;";
+		div.innerHTML = `<img src="../img/reinaBlanco.svg" alt="Reina blanco" />` ;
+	}
+	if (peonBlanco.indexOf(i) !== -1) {
+		//div.innerHTML = "&#9817;";
+		div.innerHTML = `<img src="../img/peonBlanco.svg" alt="Peon blanco" />` ;
+	}
+}
