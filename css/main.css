@@ -640,14 +640,24 @@ ul {
   display: none; }
 
 #Tablero {
-  width: 420px;
-  height: 420px;
-  border: 2px solid #434343; }
+  width: 570px;
+  height: 570px; }
   #Tablero div {
-    width: 52px;
-    height: 52px;
+    border: 1px solid black;
+    width: 70px;
+    height: 70px;
     float: left;
-    padding: 5px; }
+    padding: 10px 0 3px; }
     #Tablero div img {
       width: 100%;
       height: 100%; }
+
+#radio {
+  display: flex;
+  justify-content: center; }
+  #radio label {
+    margin: 10px; }
+
+#ingresoJugada {
+  padding: 20px 0 0 20px;
+  display: inline-block; }

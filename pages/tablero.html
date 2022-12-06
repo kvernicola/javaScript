@@ -23,7 +23,7 @@
 	</head>
 
 	<body>
-		<div class="container-fluid p-0">
+		<div class="container-fluid p-0" id="board">
 			<header>
 				<div class="boxLogo">
 					<a href="#">
@@ -33,6 +33,7 @@
 				<nav>
 					<ul>
 						<li>
+                            <span id="usuarioLogueado" class="me-5"></span>
 							<a id="cerrarSesion" href="../pages/login.html">Cerrar Sesion</a>
 						</li>
 						<!-- <li>
@@ -292,16 +293,31 @@
 				</div>
 			</main> -->
             <div class="container-fluid">
-                <div class="row m-5">
-                    <div class="col-2">
-                        <strong>BLA</strong>
+                <div class="row">
+                    <div class="col-12">
+                        <div id="ingresoJugada">
+                            <input id="instruccion"><span class="ms-3">Jugada</span></input>
+                            <div id="jugadas"></div>
+                        </div>
+                        <div id="radio">
+                            <label for="blanco"><span>Elige un color ---> Blanco</span></label>
+                            <input type="radio" name="color" id="blanco" value="blanco">
+                            <label for="negro"><span>Negro</span></label>
+                            <input type="radio" name="color" id="negro" value="negro">
+                        </div>
+                        
                     </div>
-                    <div class="col-8">
+                </div>
+                <div class="row m-5">
+                    <div class="col-1"></div>
+                    <div id="tablero" class="col-8">
                         <div id="Tablero"></div>
                     </div>
-                    <div class="col-2">
-                        <strong>BLA</strong>
+                    <div class="col-3">
                     </div>
+                </div>
+                <div class="row m-5">
+                    <button id="borrarFichas">Borrar Fichas</button>
                 </div>
             </div>
             
