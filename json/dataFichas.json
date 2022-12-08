@@ -1,0 +1,74 @@
+[
+	{
+		"id": 0,
+		"nombre": "torreNegro",
+		"posicion": [0, 7],
+		"img": "../img/torreNegro.svg"
+	},
+	{
+		"id": 1,
+		"nombre": "caballoNegro",
+		"posicion": [1, 6],
+		"img": "../img/caballoNegro.svg"
+	},
+	{
+		"id": 2,
+		"nombre": "alfilNegro",
+		"posicion": [2, 5],
+		"img": "../img/alfilNegro"
+	},
+	{
+		"id": 3,
+		"nombre": "reyNegro",
+		"posicion": [3],
+		"img": "../img/reyNegro.svg"
+	},
+	{
+		"id": 4,
+		"nombre": "reinaNegro",
+		"posicion": [4],
+		"img": "../img/reinaNegro.svg"
+	},
+	{
+		"id": 5,
+		"nombre": "peonNegro",
+		"posicion": [8, 9, 10, 11, 12, 13, 14, 15],
+		"img": "../img/peonNegro.svg"
+	},
+	{
+		"id": 6,
+		"nombre": "torreBlanco",
+		"posicion": [56, 63],
+		"img": "../img/torreBlanco.svg"
+	},
+	{
+		"id": 7,
+		"nombre": "caballoBlanco",
+		"posicion": [57, 62],
+		"img": "../img/caballoBlanco.svg"
+	},
+	{
+		"id": 8,
+		"nombre": "alfilBlanco",
+		"posicion": [58, 61],
+		"img": "../img/alfilBlanco.svg"
+	},
+	{
+		"id": 9,
+		"nombre": "reyBlanco",
+		"posicion": [59],
+		"img": "../img/reyBlanco.svg"
+	},
+	{
+		"id": 10,
+		"nombre": "reinaBlanco",
+		"posicion": [60],
+		"img": "../img/reinaBlanco.svg"
+	},
+	{
+		"id": 11,
+		"nombre": "peonBlanco",
+		"posicion": [48, 49, 50, 51, 52, 53, 54, 55],
+		"img": "../img/peonBlanco.svg"
+	}
+]

@@ -82,15 +82,15 @@ let Usuarios = [
 		id: 1,
 	},
 	{
-		nombre: "Martin",
+		nombre: "Giribaldi",
 		nombreUsuario: "amgiribaldi@outlook.com",
 		password: "qwe123",
 		id: 2,
 	},
 	{
-		nombre: "Giribaldi",
-		nombreUsuario: "amgiribaldi@xmail.com",
-		password: "ewqewq",
+		nombre: "CoderHouse",
+		nombreUsuario: "coderhouse@coderhouse.com",
+		password: "coderhouse",
 		id: 3,
 	},
 	{
@@ -234,7 +234,6 @@ const loginEmail = document.getElementById("loginEmail"),
 const cerrarSesion = document.getElementById("cerrarSesion");
 if (cerrarSesion) {
 	cerrarSesion.addEventListener("click", () => {
-		//sessionStorage.clear();
 		borrarDatos();
 	});
 }
@@ -246,12 +245,10 @@ if (listarUsuarios == null) {
 } else {
 	Usuarios = JSON.parse(localStorage.getItem("Usuarios"));
 }
-//console.log(listarUsuarios);
 console.log(Usuarios);
 
 //Limpiar datos de los storages
 function borrarDatos() {
-	//localStorage.clear();
 	sessionStorage.clear();
 }
 
@@ -264,9 +261,7 @@ if (btnJugar) {
 			text: "Para jugar tienes que iniciar sesion",
 			icon: "warning",
 			iconColor: "#66f4ae",
-			confirmButtonText: "Ok",
-			showCancelButton: true,
-			cancelButtonText: textoBtn.link(URL),
+			confirmButtonText: textoBtn.link(URL),
 		});
 	};
 }
@@ -276,10 +271,6 @@ function validarUsuario(usuariosDB, usuario, password) {
 	let existe = usuariosDB.find(
 		(usuarioDB) => usuarioDB.nombreUsuario == usuario
 	);
-	//.find  busca en el array y devuelve el primer valor(nombreUsuario) encontrado o undefined si no encuentra
-	//console.log(existe);
-	//console.log(typeof existe);
-
 	if (typeof existe === "undefined") {
 		return false;
 	} else {
@@ -296,43 +287,39 @@ function validarUsuario(usuariosDB, usuario, password) {
 if (btnLogin) {
 	btnLogin.addEventListener("click", (e) => {
 		e.preventDefault();
-		for (let i = 2; i >= 0; i--) {
-			//revisar este for o sacarlo
-			if (!loginEmail.value || !loginPassword.value) {
+		if (!loginEmail.value || !loginPassword.value) {
+			Swal.fire({
+				title: "Ingrese usuario y contraseña para inciar sesion",
+				icon: "warning",
+				iconColor: "#FF8000",
+				confirmButtonText: "Aceptar",
+			});
+		} else {
+			let datos = validarUsuario(
+				Usuarios,
+				loginEmail.value,
+				loginPassword.value
+			);
+			//console.log(datos);
+			if (!datos) {
 				Swal.fire({
-					title: "Ingrese usuario y contraseña para inciar sesion",
+					title: "Datos incorrectos",
+					text: "Verifique los datos ingresados y vuelva a intentar",
 					icon: "warning",
-					iconColor: "#FF8000",
+					iconColor: "#CB3234",
 					confirmButtonText: "Aceptar",
 				});
 			} else {
-				let datos = validarUsuario(
-					Usuarios,
-					loginEmail.value,
-					loginPassword.value
-				);
-				//console.log(datos);
-				if (!datos) {
-					Swal.fire({
-						title: "Datos incorrectos",
-						text: "Verifique los datos ingresados y vuelva a intentar",
-						icon: "warning",
-						iconColor: "#CB3234",
-						confirmButtonText: "Aceptar",
-					});
-				} else {
-					let textoBtn = "Comenzar partida";
-					let URL = "../pages/tablero.html";
-					Swal.fire({
-						title: `Bienvenido/a ${datos.nombre}`,
-						text: "Es hora de jugar",
-						icon: "info",
-						iconColor: "#66f4ae",
-						confirmButtonText: textoBtn.link(URL),
-					});
-					sessionStorage.setItem("Usuario", JSON.stringify(datos));
-					break;
-				}
+				let textoBtn = "Comenzar partida";
+				let URL = "../pages/tablero.html";
+				Swal.fire({
+					title: `Bienvenido/a ${datos.nombre}`,
+					text: "Es hora de jugar",
+					icon: "info",
+					iconColor: "#66f4ae",
+					confirmButtonText: textoBtn.link(URL),
+				});
+				sessionStorage.setItem("Usuario", JSON.stringify(datos));
 			}
 		}
 	});
@@ -341,21 +328,10 @@ if (btnLogin) {
 const usuarioLogueado = JSON.parse(sessionStorage.getItem("Usuario"));
 const usuario = document.getElementById("usuarioLogueado");
 
-
 if (usuarioLogueado) {
 	usuario.innerText = `Bienvenido/a ${usuarioLogueado.nombre}`;
 	console.log(usuarioLogueado);
 }
-
-/* const usuario = JSON.parse(sessionStorage.getItem("Usuario"));
-const usuarioLogueado = document.getElementById("usuarioLogueado");
-console.log(usuario);
-
-function estaLogueado(usuario) {
-	if (usuario) {
-		usuarioLogueado.innerText = `Bienvenido/a ${usuario.nombre}`;
-	}
-} */
 
 if (btnRegistrar) {
 	btnRegistrar.addEventListener("click", (e) => {
@@ -433,13 +409,13 @@ if (btnRegistrar) {
 				});
 			}
 		}
-		console.log(existe);
+		//console.log(existe);
 		console.log(listarUsuarios);
 		console.log(Usuarios);
 	});
 }
 
-const Fichas = [
+/* const Fichas = [
 	{
 		id: 0,
 		nombre: "torreNegro",
@@ -512,315 +488,265 @@ const Fichas = [
 		posicion: [48, 49, 50, 51, 52, 53, 54, 55],
 		img: "../img/peonBlanco.svg",
 	},
-];
-
-// console.log(Fichas[0].nombre);
-// console.log(Fichas[0].posicion);
-// console.log(Fichas[0].posicion.indexOf(0));
-
+]; */
 
 const radios = document.querySelectorAll('input[type="radio"]');
 const divRadios = document.getElementById("radio");
 
-radios.forEach((item) => {
-	item.addEventListener("click", () => {
-		usarFichas(item.value);
+radios.forEach((radio) => {
+	radio.addEventListener("click", () => {
+		let color = radio.value;
+		console.log(color);
+		usarFichas(color);
+		if (color == "blanco") {
+			const Toast = Swal.mixin({
+				toast: true,
+				position: "top-end",
+				showConfirmButton: false,
+				timer: 3000,
+				timerProgressBar: true,
+				didOpen: (toast) => {
+					toast.addEventListener("mouseenter", Swal.stopTimer);
+					toast.addEventListener("mouseleave", Swal.resumeTimer);
+				},
+			});
+			Toast.fire({
+				icon: "success",
+				title: "Elegiste jugar con Blancas",
+			});
+		}
+		if (color == "negro") {
+			const Toast = Swal.mixin({
+				toast: true,
+				position: "top-end",
+				showConfirmButton: false,
+				timer: 3000,
+				timerProgressBar: true,
+				didOpen: (toast) => {
+					toast.addEventListener("mouseenter", Swal.stopTimer);
+					toast.addEventListener("mouseleave", Swal.resumeTimer);
+				},
+			});
+			Toast.fire({
+				icon: "success",
+				title: "Elegiste jugar con Negras",
+			});
+		}
 	});
 });
-
-
-//-------
-class crearTablero {
-	static ctx; //contexto
-	static anchoTablero;
-	static altoTablero;
-	static anchoCelda;
-	static pintarTablero(tablero) {
-		if (this.ctx == undefined) {
-			let divTablero = document.getElementById("Tablero");
-			this.anchoTablero = divTablero.clientWidth;
-			this.altoTablero = divTablero.clientHeight;
-		}
-		this.anchoCelda = this.altoTablero / 8;
-
-		let y = 0;
-		let x = 0;
-		let blanco = true;
-		for (let i = 0; i < 8; i++) {
-			x = 0;
-		}
-	}
-}
-
-/* class Tablero{
-	constructor(){
-		this.tablero=[];
-		for (let i = 0; i < 8; i++) {
-			let fila = [];
-			for (let j = 0; j < 8; j++) {
-				fila.push(undefined);
-			}
-			this.tablero.push(fila);
-		}
-	}
-
-} */
-
-// Instrucciones movimientos
-let jugadas = document.getElementById("jugadas");
-
-let instruccion = document.getElementById("instruccion");
-if (instruccion) {
-	instruccion.addEventListener("keypress", (evento) => {
-		if (evento.charCode == 13) {
-			procesarComando(instruccion.value, jugadas);
-		}
-	});
-}
-
-//commando=instruccion.value
-function procesarComando(comando, jugadas) {
-	let movimientos = comando.trim().split(" ", 2);
-	if (movimientos.length > 0) {
-		let columnas = [];
-		let filas = [];
-		for (let i = 0; i < movimientos.length; i++) {
-			let movimiento = movimientos[i].split("");
-			let posicion = 0;
-			switch (movimiento[0]) {
-				case "T":
-				case "C":
-				case "A":
-				case "R":
-				case "D":
-				case "P":
-					posicion++;
-					break;
-			}
-			if (movimiento[posicion] == "x") {
-				posicion++;
-			}
-			columnas.push(movimiento[posicion++]);
-			filas.push(movimiento[posicion++]);
-		}
-
-		console.log(comando);
-		console.log(columnas, filas);
-	} else {
-		const Toast = Swal.mixin({
-			toast: true,
-			position: "top-end",
-			showConfirmButton: false,
-			timer: 3000,
-			timerProgressBar: true,
-			didOpen: (toast) => {
-				toast.addEventListener("mouseenter", Swal.stopTimer);
-				toast.addEventListener("mouseleave", Swal.resumeTimer);
-			},
-		});
-		Toast.fire({
-			icon: "warning",
-			title: "El movimiento no es correcto",
-		});
-	}
-}
-
-//-------
 
 const tablero = document.getElementById("Tablero");
 let tableroFichas = [];
 
 function usarFichas(color) {
-	if (color == "blanco") {
-		if (tableroFichas == 0) {
-			for (let i = 0; i < 64; i++) {
-				let div = document.createElement("div");
-				tablero.appendChild(div).style.backgroundColor =
-					parseInt(i / 8 + i) % 2 == 0 ? "#fff" : "#493e3e";
-				tableroFichas.push(div);
-				div.classList.add("casillero" + i);
-				if (Fichas[6].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/torreBlanco.svg" class="" alt="Torre blanco" />`;
+	fetch("../json/dataFichas.json")
+		.then((resp) => resp.json())
+		.then((dataFichas) => {
+			// console.log(dataFichas);
+			// console.log(dataFichas[0].id);
+			// console.log(dataFichas[0].nombre);
+			// console.log(dataFichas[0].posicion.length);
+			// console.log(dataFichas[0].img);
+			// console.log(dataFichas[0].posicion.indexOf(0));
+			const Fichas = dataFichas;
+			//console.log(Fichas);
+			if (color == "blanco") {
+				if (tableroFichas == 0) {
+					for (let i = 0; i < 64; i++) {
+						let div = document.createElement("div");
+						tablero.appendChild(div).style.backgroundColor =
+							parseInt(i / 8 + i) % 2 == 0 ? "#fff" : "#493e3e";
+						tableroFichas.push(div);
+						div.classList.add("casillero" + i);
+						if (Fichas[6].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/torreBlanco.svg" class="" alt="Torre blanco" />`;
+						}
+						if (Fichas[7].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/caballoBlanco.svg" alt="Caballo blanco" />`;
+						}
+						if (Fichas[8].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/alfilBlanco.svg" alt="Alfil blanco" />`;
+						}
+						if (Fichas[9].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/reyBlanco.svg" alt="Rey blanco" />`;
+						}
+						if (Fichas[10].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/reinaBlanco.svg" alt="Reina blanco" />`;
+						}
+						if (Fichas[11].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/peonBlanco.svg" alt="Peon blanco" />`;
+						}
+						if (Fichas[0].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/torreNegro.svg" alt="Torre negro" />`;
+						}
+						if (Fichas[1].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/caballoNegro.svg" alt="Caballo negro" />`;
+						}
+						if (Fichas[2].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/alfilNegro.svg" alt="Alfil negro" />`;
+						}
+						if (Fichas[3].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/reyNegro.svg" alt="Rey negro" />`;
+						}
+						if (Fichas[4].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/reinaNegro.svg" alt="Reina negro" />`;
+						}
+						if (Fichas[5].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/peonNegro.svg" alt="Peon negro" />`;
+						}
+					}
+				} else {
+					borrarTablero();
+					for (let i = 0; i < 64; i++) {
+						let div = document.createElement("div");
+						tablero.appendChild(div).style.backgroundColor =
+							parseInt(i / 8 + i) % 2 == 0 ? "#fff" : "#493e3e";
+						tableroFichas.push(div);
+						div.classList.add("casillero" + i);
+						if (Fichas[6].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/torreBlanco.svg" class="" alt="Torre blanco" />`;
+						}
+						if (Fichas[7].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/caballoBlanco.svg" alt="Caballo blanco" />`;
+						}
+						if (Fichas[8].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/alfilBlanco.svg" alt="Alfil blanco" />`;
+						}
+						if (Fichas[9].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/reyBlanco.svg" alt="Rey blanco" />`;
+						}
+						if (Fichas[10].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/reinaBlanco.svg" alt="Reina blanco" />`;
+						}
+						if (Fichas[11].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/peonBlanco.svg" alt="Peon blanco" />`;
+						}
+						if (Fichas[0].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/torreNegro.svg" alt="Torre negro" />`;
+						}
+						if (Fichas[1].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/caballoNegro.svg" alt="Caballo negro" />`;
+						}
+						if (Fichas[2].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/alfilNegro.svg" alt="Alfil negro" />`;
+						}
+						if (Fichas[3].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/reyNegro.svg" alt="Rey negro" />`;
+						}
+						if (Fichas[4].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/reinaNegro.svg" alt="Reina negro" />`;
+						}
+						if (Fichas[5].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/peonNegro.svg" alt="Peon negro" />`;
+						}
+					}
 				}
-				if (Fichas[7].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/caballoBlanco.svg" alt="Caballo blanco" />`;
-				}
-				if (Fichas[8].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/alfilBlanco.svg" alt="Alfil blanco" />`;
-				}
-				if (Fichas[9].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/reyBlanco.svg" alt="Rey blanco" />`;
-				}
-				if (Fichas[10].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/reinaBlanco.svg" alt="Reina blanco" />`;
-				}
-				if (Fichas[11].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/peonBlanco.svg" alt="Peon blanco" />`;
-				}
-				if (Fichas[0].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/torreNegro.svg" alt="Torre negro" />`;
-				}
-				if (Fichas[1].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/caballoNegro.svg" alt="Caballo negro" />`;
-				}
-				if (Fichas[2].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/alfilNegro.svg" alt="Alfil negro" />`;
-				}
-				if (Fichas[3].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/reyNegro.svg" alt="Rey negro" />`;
-				}
-				if (Fichas[4].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/reinaNegro.svg" alt="Reina negro" />`;
-				}
-				if (Fichas[5].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/peonNegro.svg" alt="Peon negro" />`;
-				}
+				divRadios.className += " d-none";
+				ingresoJugada.className -= "d-none";
+				console.log(tableroFichas);
+				console.log("Pieza en casillero0 " + tableroFichas[0].innerHTML);
+				/* moverFicha(tableroFichas, tableroFichas[0].innerHTML, tableroFichas[16].innerHTML);
+				console.log(tableroFichas); */
+				/* moverFicha(tableroFichas, 0, 16);
+				console.log(tableroFichas); */
 			}
-		} else {
-			borrarTablero();
-			for (let i = 0; i < 64; i++) {
-				let div = document.createElement("div");
-				tablero.appendChild(div).style.backgroundColor =
-					parseInt(i / 8 + i) % 2 == 0 ? "#fff" : "#493e3e";
-				tableroFichas.push(div);
-				div.classList.add("casillero" + i);
-				if (Fichas[6].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/torreBlanco.svg" class="" alt="Torre blanco" />`;
+			if (color == "negro") {
+				if (tableroFichas == 0) {
+					for (let i = 0; i < 64; i++) {
+						let div = document.createElement("div");
+						tablero.appendChild(div).style.backgroundColor =
+							parseInt(i / 8 + i) % 2 == 0 ? "#fff" : "#493e3e";
+						tableroFichas.push(div);
+						div.classList.add("casillero" + i);
+						if (Fichas[0].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/torreBlanco.svg" alt="Torre blanco" />`;
+						}
+						if (Fichas[1].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/caballoBlanco.svg" alt="Caballo blanco" />`;
+						}
+						if (Fichas[2].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/alfilBlanco.svg" alt="Alfil blanco" />`;
+						}
+						if (Fichas[3].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/reyBlanco.svg" alt="Rey blanco" />`;
+						}
+						if (Fichas[4].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/reinaBlanco.svg" alt="Reina blanco" />`;
+						}
+						if (Fichas[5].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/peonBlanco.svg" alt="Peon blanco" />`;
+						}
+						if (Fichas[6].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/torreNegro.svg" alt="Torre negro" />`;
+						}
+						if (Fichas[7].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/caballoNegro.svg" alt="Caballo negro" />`;
+						}
+						if (Fichas[8].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/alfilNegro.svg" alt="Alfil negro" />`;
+						}
+						if (Fichas[9].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/reyNegro.svg" alt="Rey negro" />`;
+						}
+						if (Fichas[10].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/reinaNegro.svg" alt="Reina negro" />`;
+						}
+						if (Fichas[11].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/peonNegro.svg" alt="Peon negro" />`;
+						}
+					}
+				} else {
+					borrarTablero();
+					for (let i = 0; i < 64; i++) {
+						let div = document.createElement("div");
+						tablero.appendChild(div).style.backgroundColor =
+							parseInt(i / 8 + i) % 2 == 0 ? "#fff" : "#493e3e";
+						tableroFichas.push(div);
+						div.classList.add("casillero" + i);
+						if (Fichas[0].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/torreBlanco.svg" alt="Torre blanco" />`;
+						}
+						if (Fichas[1].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/caballoBlanco.svg" alt="Caballo blanco" />`;
+						}
+						if (Fichas[2].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/alfilBlanco.svg" alt="Alfil blanco" />`;
+						}
+						if (Fichas[3].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/reyBlanco.svg" alt="Rey blanco" />`;
+						}
+						if (Fichas[4].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/reinaBlanco.svg" alt="Reina blanco" />`;
+						}
+						if (Fichas[5].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/peonBlanco.svg" alt="Peon blanco" />`;
+						}
+						if (Fichas[6].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/torreNegro.svg" alt="Torre negro" />`;
+						}
+						if (Fichas[7].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/caballoNegro.svg" alt="Caballo negro" />`;
+						}
+						if (Fichas[8].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/alfilNegro.svg" alt="Alfil negro" />`;
+						}
+						if (Fichas[9].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/reyNegro.svg" alt="Rey negro" />`;
+						}
+						if (Fichas[10].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/reinaNegro.svg" alt="Reina negro" />`;
+						}
+						if (Fichas[11].posicion.indexOf(i) !== -1) {
+							div.innerHTML = `<img src="../img/peonNegro.svg" alt="Peon negro" />`;
+						}
+					}
 				}
-				if (Fichas[7].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/caballoBlanco.svg" alt="Caballo blanco" />`;
-				}
-				if (Fichas[8].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/alfilBlanco.svg" alt="Alfil blanco" />`;
-				}
-				if (Fichas[9].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/reyBlanco.svg" alt="Rey blanco" />`;
-				}
-				if (Fichas[10].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/reinaBlanco.svg" alt="Reina blanco" />`;
-				}
-				if (Fichas[11].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/peonBlanco.svg" alt="Peon blanco" />`;
-				}
-				if (Fichas[0].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/torreNegro.svg" alt="Torre negro" />`;
-				}
-				if (Fichas[1].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/caballoNegro.svg" alt="Caballo negro" />`;
-				}
-				if (Fichas[2].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/alfilNegro.svg" alt="Alfil negro" />`;
-				}
-				if (Fichas[3].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/reyNegro.svg" alt="Rey negro" />`;
-				}
-				if (Fichas[4].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/reinaNegro.svg" alt="Reina negro" />`;
-				}
-				if (Fichas[5].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/peonNegro.svg" alt="Peon negro" />`;
-				}
+				divRadios.className += " d-none";
+				ingresoJugada.className -= "d-none";
+				console.log(tableroFichas);
+				console.log("Pieza en casillero0 " + tableroFichas[0].innerHTML);
 			}
-		}
-		divRadios.className += " d-none";
-		console.log(tableroFichas);
-		return tableroFichas;
-	}
-	if (color == "negro") {
-		if (tableroFichas == 0) {
-			for (let i = 0; i < 64; i++) {
-				let div = document.createElement("div");
-				tablero.appendChild(div).style.backgroundColor =
-					parseInt(i / 8 + i) % 2 == 0 ? "#fff" : "#493e3e";
-				tableroFichas.push(div);
-				div.classList.add("casillero" + i);
-				if (Fichas[0].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/torreBlanco.svg" alt="Torre blanco" />`;
-				}
-				if (Fichas[1].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/caballoBlanco.svg" alt="Caballo blanco" />`;
-				}
-				if (Fichas[2].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/alfilBlanco.svg" alt="Alfil blanco" />`;
-				}
-				if (Fichas[3].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/reyBlanco.svg" alt="Rey blanco" />`;
-				}
-				if (Fichas[4].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/reinaBlanco.svg" alt="Reina blanco" />`;
-				}
-				if (Fichas[5].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/peonBlanco.svg" alt="Peon blanco" />`;
-				}
-				if (Fichas[6].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/torreNegro.svg" alt="Torre negro" />`;
-				}
-				if (Fichas[7].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/caballoNegro.svg" alt="Caballo negro" />`;
-				}
-				if (Fichas[8].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/alfilNegro.svg" alt="Alfil negro" />`;
-				}
-				if (Fichas[9].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/reyNegro.svg" alt="Rey negro" />`;
-				}
-				if (Fichas[10].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/reinaNegro.svg" alt="Reina negro" />`;
-				}
-				if (Fichas[11].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/peonNegro.svg" alt="Peon negro" />`;
-				}
-			}
-		} else {
-			borrarTablero();
-			for (let i = 0; i < 64; i++) {
-				let div = document.createElement("div");
-				tablero.appendChild(div).style.backgroundColor =
-					parseInt(i / 8 + i) % 2 == 0 ? "#fff" : "#493e3e";
-				tableroFichas.push(div);
-				div.classList.add("casillero" + i);
-				if (Fichas[0].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/torreBlanco.svg" alt="Torre blanco" />`;
-				}
-				if (Fichas[1].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/caballoBlanco.svg" alt="Caballo blanco" />`;
-				}
-				if (Fichas[2].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/alfilBlanco.svg" alt="Alfil blanco" />`;
-				}
-				if (Fichas[3].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/reyBlanco.svg" alt="Rey blanco" />`;
-				}
-				if (Fichas[4].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/reinaBlanco.svg" alt="Reina blanco" />`;
-				}
-				if (Fichas[5].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/peonBlanco.svg" alt="Peon blanco" />`;
-				}
-				if (Fichas[6].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/torreNegro.svg" alt="Torre negro" />`;
-				}
-				if (Fichas[7].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/caballoNegro.svg" alt="Caballo negro" />`;
-				}
-				if (Fichas[8].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/alfilNegro.svg" alt="Alfil negro" />`;
-				}
-				if (Fichas[9].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/reyNegro.svg" alt="Rey negro" />`;
-				}
-				if (Fichas[10].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/reinaNegro.svg" alt="Reina negro" />`;
-				}
-				if (Fichas[11].posicion.indexOf(i) !== -1) {
-					div.innerHTML = `<img src="../img/peonNegro.svg" alt="Peon negro" />`;
-				}
-			}
-		}
-		divRadios.className += " d-none";
-		console.log(tableroFichas);
-		return tableroFichas;
-	}
+		});
 }
 
 const btnBorrarFichas = document.getElementById("borrarFichas");
@@ -831,6 +757,7 @@ if (btnBorrarFichas) {
 			f.parentNode.removeChild(f);
 		}
 		divRadios.className -= " d-none";
+		ingresoJugada.className += " d-none";
 	});
 }
 
@@ -841,6 +768,7 @@ function borrarTablero() {
 	tableroFichas = [];
 }
 
+//Probando
 function moverFicha(datosArray, inicial, final) {
 	let n = datosArray.length;
 
@@ -853,64 +781,4 @@ function moverFicha(datosArray, inicial, final) {
 	];
 }
 
-//Prueba de la funcion
-/* let numeros = [1, 2, 3, 4, 5];
-console.log(numeros);
 
-moverFicha(numeros, 0, numeros.length - 3);
-console.log(numeros); */
-
-//ejemplo
-/* moverFicha(tableroFichas, 0, 24);
-console.log(tableroFichas); */
-
-//------------------------------------------------------------
-/* function saludar(usuario) {
-    nombreUsuario.innerHTML = `Bienvenido/a, <span>${usuario.name}</span>`
-} */
-
-//------------------------------------------------------------
-
-/* /* /* inputOptions can be an object or Promise */
-/* const inputOptions = new Promise((resolve) => {
-	setTimeout(() => {
-		resolve({
-			"Blancas": "Blancas",
-			"Negras": "Negras",
-		});
-	}, 1000);
-});
-
-const { value: color } = await Swal.fire({
-	title: "Select color",
-	input: "radio",
-	inputOptions: inputOptions,
-	inputValidator: (value) => {
-		if (!value) {
-			return "You need to choose something!";
-		}
-	},
-});
-
-if (color) {
-	Swal.fire({ html: `You selected: ${color}` });
-} */
-
-//Esta función nos permite intercambiar la visualización de los elementos del DOM, agregando o sacando la clase d-none. Si el elemento la tiene, se la saco, y si no la tiene, se la agrego. La gata Flora de las funciones sería.
-// function presentarInfo(array, clase) {
-//     array.forEach(element => {
-//         element.classList.toggle(clase);
-//     });
-// }
-
-//Esta función revisa si hay un usuario guardado en el storage, y en ese caso evita todo el proceso de login
-// function estaLogueado(usuario) {
-
-//     if (usuario) {
-//         saludar(usuario);
-//         mostrarInfoMascota(mascotas);
-//         presentarInfo(elementosToggleables, 'd-none');
-//     }
-// }
-
-//----------------------------------------------------------------------

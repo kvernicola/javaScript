@@ -1,0 +1,26 @@
+[
+	{
+		"nombre": "Andres",
+		"nombreUsuario": "amgiribaldi@gmail.com",
+		"password": "qweqwe",
+		"id": 1
+	},
+	{
+		"nombre": "Giribaldi",
+		"nombreUsuario": "amgiribaldi@outlook.com",
+		"password": "qwe123",
+		"id": 2
+	},
+	{
+		"nombre": "CoderHouse",
+		"nombreUsuario": "coderhouse@coderhouse.com",
+		"password": "coderhouse",
+		"id": 3
+	},
+	{
+		"nombre": "Invitado",
+		"nombreUsuario": "invitado@invitado.com",
+		"password": "invitado",
+		"id": 4
+	}
+]
